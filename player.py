@@ -61,6 +61,6 @@ class Player(Tile):
     def update(self):
         self.image = next(self.animation)
         self.board_pos = self.routine.send((self.move, self.dir))
-        self.rect = self.convert(self.board_pos)
+        self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
 
 
