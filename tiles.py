@@ -1,14 +1,14 @@
 from xy import XY
 import pygame as pyg
 from pygame import Surface, Rect
-from pygame.sprite import Sprite
+from pygame.sprite import DirtySprite, Sprite
 
 from constants import *
 
-class Tile(Sprite):
+class Tile(DirtySprite):
 
     width = 70
-    containers = ()
+    layer_container = None
     nb_lines = 10
 
     @classmethod
@@ -19,12 +19,14 @@ class Tile(Sprite):
         size = map(int, size)
         return pyg.transform.smoothscale(ressource, size)
 
-
-    def __init__(self, board_pos):
-        super(Tile, self).__init__(self.containers)
+    def __init__(self, board_pos, layer=0):
+        # Init
+        super(Tile, self).__init__()
+        self.layer_container.add(self, layer=layer)
         self.pos = self.convert(board_pos)
         self.rect = Rect(self.pos, (0, 0))
         self.image = Surface(self.rect.size)
+        self.dirty = 1
 
     def convert(self, pos):
         pos = XY(pos.y-pos.x, pos.x+pos.y)
@@ -40,8 +42,7 @@ class Block(Tile):
 
     def __init__(self, board_pos, board_id):
         self.board_pos = XY(*board_pos)
-        self._layer = board_id
-        super(Block, self).__init__(self.board_pos)
+        super(Block, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
 
 class Floor(Tile):
@@ -51,8 +52,7 @@ class Floor(Tile):
 
     def __init__(self, board_pos, board_id):
         self.board_pos = XY(*board_pos)
-        self.layer = board_id
-        super(Floor, self).__init__(self.board_pos)
+        super(Floor, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
 
 class Border(Tile):
@@ -62,6 +62,5 @@ class Border(Tile):
 
     def __init__(self, board_pos, board_id):
         self.board_pos = XY(*board_pos)
-        self.layer = board_id
-        super(Border, self).__init__(self.board_pos)
+        super(Border, self).__init__(self.board_pos, board_id)
         self.image = self.ressource

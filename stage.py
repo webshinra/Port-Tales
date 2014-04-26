@@ -17,7 +17,9 @@ class Board:
 
     dct = {-1: "borders",
            0: "floors",
-           1: "blocks"}
+           1: "blocks",
+           2: "p1",
+           3: "p2"}
 
     def __init__(self, file_name):
         self.mat = add_border(parse(file_name))
@@ -26,9 +28,13 @@ class Board:
         self.blocks = []
         self.floors = []
         self.borders = []
+        self.p1 = []
+        self.p2 = []
         for i, line in enumerate(self.mat):
             for j, element in enumerate(line):
                 getattr(self, self.dct[element]).append((i,j))
+        self.p1 = self.p1[0]
+        self.p2 = self.p2[0]
 
     def get_id(self, pos):
         pos = XY(*pos)
@@ -38,13 +44,15 @@ class Board:
 class Stage:
     def __init__(self, filename):
        self.board = Board(filename)
-       #self.player1 = Player(1, self.board.p1)
-       #self.player2 = Player(2, self.board.p2)
        for pos in self.board.blocks:
            Block(pos, self.board.get_id(pos))
        for pos in self.board.floors:
            Floor(pos, self.board.get_id(pos))
        for pos in self.board.borders:
            Border(pos, self.board.get_id(pos))
+       args = 1, self.board.p1, self.board.get_id(self.board.p1)
+       self.player1 = Player(*args)
+       args = 2, self.board.p2, self.board.get_id(self.board.p2)
+       self.player2 = Player(*args)
 
 

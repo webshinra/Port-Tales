@@ -3,6 +3,7 @@ from pygame import Surface
 from pygame.sprite import Sprite, RenderUpdates, Group
 from constants import *
 from xy import XY
+from tiles import Tile
 
 countdown = lambda x: xrange(x-1,-1,-1)
 
@@ -20,21 +21,26 @@ def player_routine(self):
         move, direction = yield pos
 
 
-class Player(Sprite):
+class Player(Tile):
 
     containers = ()
-    size = 20,20
-    #ressource_name = "player.png"
-    #ressource = pyg.image.load(ressource_name).convert()
-    #ressource = pyg.transform.smoothscale(ressource, Tile.size)
+    ressource_name = "player.png"
+    ressource = Tile.resize_ressource(ressource_name)
 
-    def __init__(self, player_id, board_pos):
-        super(Player, self).__init__(self.containers)
+    def __init__(self, player_id, board_pos, layer=0):
+        self.board_pos = XY(*board_pos)
+        super(Block, self).__init__(self.board_pos, board_id)
+        self.image = self.ressource
         self.id = player_id
-        self.board_pos = board_pos
         self.routine = player_routine(self)
         next(self.routine)
 
+    def convert(self, pos):
+        pos = XY(pos.y-pos.x, pos.x+pos.y)
+        factor_y = (self.width-4)/(2*3**0.5)
+        pos *= (self.width-4)*0.5, factor_y
+        pos += self.width*self.nb_lines/2, 0
+        return XY(*map(int,pos))
 
     def set_input(self, keys):
         self.move = False
