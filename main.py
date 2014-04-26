@@ -2,7 +2,6 @@
 import pygame as pyg
 from pygame import Surface, joystick
 from pygame.sprite import Sprite, LayeredDirty, Group, LayeredUpdates
-from player import Player
 from fps import Fps
 from constants import *
 
@@ -39,6 +38,7 @@ def main():
     # Imports
     from stage import Stage
     from tiles import Tile
+    from player import Player
 
     # Init clock
     clock = pyg.time.Clock()
