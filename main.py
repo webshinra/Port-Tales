@@ -1,7 +1,7 @@
 # Import
 import pygame as pyg
 from pygame import Surface, joystick
-from pygame.sprite import Sprite, LayeredUpdates, Group
+from pygame.sprite import Sprite, LayeredDirty, Group, LayeredUpdates
 from player import Player
 from fps import Fps
 from constants import *
@@ -32,8 +32,8 @@ def main():
     pyg.display.set_caption('Test')
     background = pyg.image.load('background.jpg').convert()
     background = pyg.transform.smoothscale(background, WINDOW_SIZE)
+    background.fill(WHITE)
     screen.blit(background, background.get_rect())
-    screen.fill(WHITE)
     pyg.display.flip()
 
     # Imports
@@ -44,12 +44,11 @@ def main():
     clock = pyg.time.Clock()
 
     # Init groups
-    all_sprites = LayeredUpdates()
+    all_sprites = LayeredDirty()
     players = Group()
-    movable = Group()
-    Player.containers += all_sprites, players, movable
-    Fps.containers += all_sprites, movable
-    Tile.containers += all_sprites,
+    Player.containers += players,
+    Fps.containers += all_sprites,
+    Tile.layer_container = all_sprites
 
     # Init element
     Stage("file.txt")
@@ -69,7 +68,7 @@ def main():
         #next(iter(players)).set_input()
 
         # Clear sprites from screen
-        all_sprites.clear(screen, clear_callback)
+        all_sprites.clear(screen, background)
 
         # Update sprites
         all_sprites.update()
