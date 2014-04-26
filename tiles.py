@@ -9,6 +9,7 @@ class Tile(Sprite):
 
     width = 70
     containers = ()
+    nb_lines = 10
 
     @classmethod
     def resize_ressource(cls, name):
@@ -27,9 +28,9 @@ class Tile(Sprite):
 
     def convert(self, pos):
         pos = XY(pos.y-pos.x, pos.x+pos.y)
-        factor_y = (self.width-2)/(2*3**0.5)
-        pos *= (self.width-2)*0.5, factor_y
-        pos += 500, 100
+        factor_y = (self.width-4)/(2*3**0.5)
+        pos *= (self.width-4)*0.5, factor_y
+        pos += self.width*self.nb_lines/2, 0
         return XY(*map(int,pos))
 
 class Block(Tile):
@@ -52,4 +53,15 @@ class Floor(Tile):
         self.board_pos = XY(*board_pos)
         self.layer = board_id
         super(Floor, self).__init__(self.board_pos)
+        self.image = self.ressource
+
+class Border(Tile):
+
+    ressource_name = "border.png"
+    ressource = Tile.resize_ressource(ressource_name)
+
+    def __init__(self, board_pos, board_id):
+        self.board_pos = XY(*board_pos)
+        self.layer = board_id
+        super(Border, self).__init__(self.board_pos)
         self.image = self.ressource

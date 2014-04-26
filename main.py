@@ -46,8 +46,9 @@ def main():
     # Init groups
     all_sprites = LayeredUpdates()
     players = Group()
-    Player.containers += all_sprites, players
-    Fps.containers += all_sprites,
+    movable = Group()
+    Player.containers += all_sprites, players, movable
+    Fps.containers += all_sprites, movable
     Tile.containers += all_sprites,
 
     # Init element

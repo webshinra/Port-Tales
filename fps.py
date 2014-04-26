@@ -6,7 +6,7 @@ from constants import *
 class Fps(Sprite):
     """ Sprite class to display the FPS rate """
 
-    color = WHITE
+    color = BLACK
     containers = ()
 
     def __init__(self,clock):
