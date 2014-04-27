@@ -36,7 +36,9 @@ class Player(Tile):
 
         self.update_view()
         for tile in self.preview:
-            self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
+            tileId = self.map.mat[tile[0]][tile[1]]
+            if (tileId == 1 or tileId == 4 or tileId == 5):
+                self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
 
     def update_view(self):
         self.view.board_pos = pos = XY(self.x, self.y)
@@ -48,7 +50,9 @@ class Player(Tile):
 
         
         for tile in self.preview:
-            self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
+            tileId = self.map.mat[tile[0]][tile[1]]
+            if (tileId == 1 or tileId == 4 or tileId == 5):
+                self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
         
 
         self.preview = self.map.projection(self.id)
@@ -57,7 +61,9 @@ class Player(Tile):
             ressource_name = "floor_green.png"
             
         for tile in self.preview:
-            self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource(ressource_name)
+            tileId = self.map.mat[tile[0]][tile[1]]
+            if (tileId == 1 or tileId == 4 or tileId == 5):
+                self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource(ressource_name)
 
 
 
