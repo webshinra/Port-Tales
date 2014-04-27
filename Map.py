@@ -116,13 +116,18 @@ class Map:
 
         return res
 
-    def success (self):
+    def success(self):
 
         player1 = self.players[1]
         player2 = self.players[2]
 
         success1 = player1.x == self.goal1[0] and player1.y == self.goal1[1]
         success2 = player2.x == self.goal2[0] and player2.y == self.goal2[1]
+
+        self.goal[1].view.set_active(success1)
+        self.goal[2].view.set_active(success2)
+        self.players[1].view.show(not success1)
+        self.players[2].view.show(not success2)
 
         return success1 and success2
 

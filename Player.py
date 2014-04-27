@@ -60,10 +60,11 @@ class PlayerView(TileView):
         self.dirty = 2
         self.animation = None
         self.set_animation((0,1))
-        self.counter = counter(self.len_animation)
+        self.counter = counter(self.len_animation, cyclic=True)
         self.image = self.animation[next(self.counter)]
 
-
+    def show(self, visible):
+        self.visible = visible
 
     def set_animation(self, hat):
         key = (self.id,) + hat
@@ -77,7 +78,10 @@ class PlayerView(TileView):
         return XY(*map(int,pos))
 
     def update(self):
-        self.image = self.animation[next(self.counter)]
+        if self.visible:
+            self.image = self.animation[next(self.counter)]
+        else:
+            self.image = Surface((0,0))
         self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
 
 
