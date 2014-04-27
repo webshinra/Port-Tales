@@ -41,7 +41,8 @@ class MapView:
             for ev in pyg.event.get():
                 if ev.type == pyg.QUIT or \
                     (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE):
-                        pyg.quit()
+                        self.all_sprites.empty()
+                        #pyg.quit()
                         return
 
             # Read input
