@@ -33,23 +33,24 @@ class Map:
         from TileView import TileView
         self.dct = {-1: Border,
                      1:  Floor,
-               2: Goal,
-               3: Goal,
-               4: partial(self.build_player, 1),
-               5: partial(self.build_player, 2),
-               6: Block,
-               7: "hole",
-               8: "mirrorDU",
-               9: "mirrorUD",
-               10: "memory",
-               11: "p1Wall",
-               12: "p2Wall" }
+                     2: partial(self.build_goal, 1),
+                     3: partial(self.build_goal, 2),
+                     4: partial(self.build_player, 1),
+                     5: partial(self.build_player, 2),
+                     6: Block,
+                     7: "hole",
+                     8: "mirrorDU",
+                     9: "mirrorUD",
+                     10: "memory",
+                     11: "p1Wall",
+                     12: "p2Wall" }
 
         # Parse file
         self.mat = add_border(parse(file_name))
         self.width = TileView.nb_lines = len(self.mat)
         self.height = len(self.mat[0])
         self.players = {}
+        self.goal = {}
         for i, line in enumerate(self.mat):
             for j, element in enumerate(line):
                 pos = i,j
@@ -71,9 +72,14 @@ class Map:
 
     def build_player(self, player_id, pos, pid):
         from Player import Player
-        from Tile import Block, Floor, Border, Tile
+        from Tile import Floor
         Floor(pos, pid)
         self.players[player_id] = Player(player_id, pos, self)
+
+
+    def build_goal(self, goal_id, pos, pid):
+        from Tile import Goal
+        self.goal[goal_id] = Goal(goal_id, pos, pid)
 
 
     def get_id(self, pos):
@@ -111,7 +117,7 @@ class Map:
         return res
 
     def success (self):
-        
+
         player1 = self.players[1]
         player2 = self.players[2]
 
@@ -129,8 +135,8 @@ class Map:
         player2.x = self.start2[0]
         player2.y = self.start2[1]
 
-        
-        
+
+
 
 
 

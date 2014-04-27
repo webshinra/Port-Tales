@@ -25,7 +25,7 @@ class Border(Tile):
         self.view = BorderView(pos, pid)
 
 class Goal(Tile):
-    def __init__(self, pos, pid):
+    def __init__(self, goal_id, pos, pid):
         #super(Border, self).__init__(*pos)
         Tile.__init__(self, *pos)
-        self.view = GoalView(pos, pid)
+        self.view = GoalView(goal_id, pos, pid)

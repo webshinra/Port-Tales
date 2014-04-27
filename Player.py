@@ -3,26 +3,10 @@ from pygame import Surface
 from pygame.sprite import Sprite, RenderUpdates, Group
 from Constants import *
 from XY import XY
-from TileView import TileView
+from TileView import TileView, animation, counter
 from Tile import Tile
 import os
 from itertools import takewhile, count, cycle
-
-countdown = lambda x: xrange(x-1,-1,-1)
-
-def counter(period):
-    current = period
-    while True:
-        current -= 1
-        current %= period
-        yield current
-
-
-def animation(folder):
-        names = (os.path.join(folder, "{:04}.png".format(i)) for i in count(1))
-        names = takewhile(os.path.isfile , names)
-        return [TileView.resize_ressource(name) for name in names]
-
 
 class Player(Tile):
     def __init__(self, player_id, pos, mp):
@@ -33,7 +17,7 @@ class Player(Tile):
         self.id = player_id
 
     def action(self):
-        target = self.map.projection(self.id)[-1]        
+        target = self.map.projection(self.id)[-1]
         self.x = target[0]
         self.y = target[1]
 
@@ -42,7 +26,7 @@ class Player(Tile):
             self.map.reset()
             otherId = 2 if self.id == 1 else 1
             self.map.players[otherId].update_view()
-            
+
         self.update_view()
 
     def update_view(self):
@@ -68,7 +52,6 @@ class PlayerView(TileView):
 
     ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
     len_animation = min(len(x) for x in ressource_dict.values())
-    print(len_animation)
 
     def __init__(self, player_id, board_pos, board_id):
         self.board_pos = XY(*board_pos)

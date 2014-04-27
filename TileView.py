@@ -6,6 +6,21 @@ from itertools import takewhile, count, cycle
 import os
 from Constants import *
 
+
+countdown = lambda x: xrange(x-1,-1,-1)
+
+def counter(period):
+    current = period
+    while True:
+        current -= 1
+        current %= period
+        yield current
+
+def animation(folder):
+        names = (os.path.join(folder, "{:04}.png".format(i)) for i in count(1))
+        names = takewhile(os.path.isfile , names)
+        return [TileView.resize_ressource(name) for name in names]
+
 class TileView(DirtySprite):
 
     width = 70#141
@@ -68,20 +83,20 @@ class BorderView(TileView):
 
 class GoalView(TileView):
 
-    def animation(folder):
-        names = (os.path.join(folder, "{:04}.png".format(i)) for i in count(1))
-        names = takewhile(os.path.isfile , names)
-        return [TileView.resize_ressource(name) for name in names]
+    folder_dict = {1 : "goal_red",
+                   2 : "goal_green"}
 
-    ressource_name = "goal"
-    ressources = animation(ressource_name)
+    ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
+    len_animation = min(len(x) for x in ressource_dict.values())
 
-    def __init__(self, board_pos, board_id):
+    def __init__(self, goal_id, board_pos, board_id):
         self.board_pos = XY(*board_pos)
         super(GoalView, self).__init__(self.board_pos, board_id)
-        self.animation = cycle(self.ressources)
-        self.image = next(self.animation)
+        self.id = goal_id
+        self.animation = self.ressource_dict[self.id]
+        self.counter = counter(self.len_animation)
+        self.image = self.animation[next(self.counter)]
 
     def update(self):
-        self.image = next(self.animation)
+        self.image = self.animation[next(self.counter)]
         self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
