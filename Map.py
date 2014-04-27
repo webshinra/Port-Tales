@@ -54,6 +54,9 @@ class Map:
 
         for id_player, player in self.players.items():
            self.action_handler.add_player(id_player, player)
+           self.projection(id_player)
+
+        
 
     def build_player(self, player_id, pos, pid):
         from Player import Player
@@ -65,6 +68,36 @@ class Map:
     def get_id(self, pos):
         pos = XY(*pos)
         return pos.x * self.width + pos.y
+
+    def projection(self, player_id):
+        res = []
+        player = self.players[player_id]
+        dir = player.dir
+        x = player.x
+        y = player.y
+
+        continu = True
+        dx = dir[0]
+        dy = dir[1]
+
+        otherId = 2 if player_id == 1 else 1
+        otherX = self.players[otherId].x
+        otherY = self.players[otherId].y
+
+        res.append((x,y))
+
+        while(continu):
+            nextX = x + dx
+            nextY = y + dy
+            nextTile = self.mat[nextX][nextY]
+            continu = nextTile != 6 and nextTile != -1
+            continu = continu and not (nextX == otherX and nextY == otherY)
+            if (continu):
+                x += dx
+                y += dy
+                res.append((x,y))
+
+        return res
 
 
 
