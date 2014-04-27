@@ -1,9 +1,9 @@
 import pygame as pyg
 from pygame import Surface
 from pygame.sprite import Sprite, RenderUpdates, Group
-from constants import *
-from xy import XY
-from Tiles import Tile
+from Constants import *
+from XY import XY
+from TileView import TileView
 import os
 from itertools import takewhile, count, cycle
 
@@ -25,17 +25,22 @@ def player_routine(self):
 def animation(folder):
         names = (os.path.join(folder, "{:04}.png".format(i)) for i in count(1))
         names = takewhile(os.path.isfile , names)
-        return [Tile.resize_ressource(name) for name in names]
+        return [TileView.resize_ressource(name) for name in names]
 
 
-class PlayerVue(Tile):
+class Player:
+    def __init__(self, player_id, board_pos, board_id):
+        PlayerView(player_id, board_pos, board_id)
+
+
+class PlayerView(TileView):
 
     containers = ()
     ressource_name = "red_player_se"
 
     def __init__(self, player_id, board_pos, board_id):
         self.board_pos = XY(*board_pos)
-        super(Player, self).__init__(self.board_pos, board_id)
+        super(PlayerView, self).__init__(self.board_pos, board_id)
         self.dirty = 2
         ressources = animation(self.ressource_name)
         self.animation = cycle(ressources)

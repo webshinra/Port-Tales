@@ -1,7 +1,7 @@
 import pygame as pyg
 from pygame import Surface
 from pygame.sprite import DirtySprite
-from constants import *
+from Constants import *
 
 class Fps(DirtySprite):
     """ Sprite class to display the FPS rate """
