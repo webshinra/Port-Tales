@@ -28,7 +28,7 @@ class Map:
         self.view = MapView(self.action_handler)
 
         # Imports
-        from Tile import Block, Floor, Border, Tile, Goal
+        from Tile import Block, Floor, Border, Tile, Goal, Hole
         from Player import Player
         from TileView import TileView
         self.dct = {-1: Border,
@@ -38,7 +38,7 @@ class Map:
                      4: partial(self.build_player, 1),
                      5: partial(self.build_player, 2),
                      6: Block,
-                     7: "hole",
+                     7: Hole,
                      8: "mirrorDU",
                      9: "mirrorUD",
                      10: "memory",
