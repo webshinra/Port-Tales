@@ -47,6 +47,7 @@ class Map:
 
         # Parse file
         self.mat = add_border(parse(file_name))
+        self.tiles = {}
         self.width = TileView.nb_lines = len(self.mat)
         self.height = len(self.mat[0])
         self.players = {}
@@ -54,7 +55,7 @@ class Map:
         for i, line in enumerate(self.mat):
             for j, element in enumerate(line):
                 pos = i,j
-                self.dct[element](pos, self.get_id(pos))
+                self.tiles[i,j] = self.dct[element](pos, self.get_id(pos))
                 if (element == 2) :
                     self.goal1 = (i,j)
                 if (element == 3) :
@@ -66,20 +67,20 @@ class Map:
 
         for id_player, player in self.players.items():
            self.action_handler.add_player(id_player, player)
-           self.projection(id_player)
-
 
 
     def build_player(self, player_id, pos, pid):
         from Player import Player
         from Tile import Floor
-        Floor(pos, pid)
+        res = Floor(pos, pid)
         self.players[player_id] = Player(player_id, pos, self)
+        return res
 
 
     def build_goal(self, goal_id, pos, pid):
         from Tile import Goal
         self.goal[goal_id] = Goal(goal_id, pos, pid)
+        return self.goal[goal_id]
 
 
     def get_id(self, pos):
@@ -109,6 +110,7 @@ class Map:
             nextTile = self.mat[nextX][nextY]
             continu = nextTile != 6 and nextTile != -1
             continu = continu and not (nextX == otherX and nextY == otherY)
+            continu = continu and not (self.mat[x][y] == 7) #hole
             if (continu):
                 x += dx
                 y += dy
