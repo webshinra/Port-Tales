@@ -1,5 +1,10 @@
 # Import
 import pygame as pyg
+import os
+
+MAP_DIR = "maps"
+MAP_FORMAT = "map{}.txt"
+MAP_ID = 1
 
 # Main function
 def main():
@@ -10,7 +15,8 @@ def main():
     from Map import Map
 
     # Create map
-    mp = Map("file.txt")
+    filename = os.path.join(MAP_DIR, MAP_FORMAT.format(MAP_ID))
+    mp = Map(filename)
 
     # Main loop
     mp.view.reactor_loop()
