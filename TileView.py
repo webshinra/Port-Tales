@@ -33,7 +33,7 @@ def animation(folder):
 
 class TileView(DirtySprite):
 
-    width = 70#141
+    width = SPRITE_WIDTH
     layer_container = None
     nb_lines = 0
 
