@@ -9,12 +9,22 @@ from Constants import *
 
 countdown = lambda x: xrange(x-1,-1,-1)
 
-def counter(period):
-    current = period
+def counter(period, reverse= False, cyclic = False):
+    current = period-1 if reverse else 0
+    inc = -1 if reverse else +1
     while True:
-        current -= 1
+        reverse = yield current
+        if reverse is not None:
+            inc = -5 if reverse else 1
+        current += inc
+        if not cyclic and current < 0:
+            break
         current %= period
-        yield current
+        if not cyclic and not current:
+            break
+
+    if reverse:
+        yield 0
 
 def animation(folder):
         names = (os.path.join(folder, "{:04}.png".format(i)) for i in count(1))
@@ -94,9 +104,29 @@ class GoalView(TileView):
         super(GoalView, self).__init__(self.board_pos, board_id)
         self.id = goal_id
         self.animation = self.ressource_dict[self.id]
-        self.counter = counter(self.len_animation)
-        self.image = self.animation[next(self.counter)]
+        self.counter = None
+        self.image = self.animation[0]
+        self.moving = False
+        self.deployed = False
+
+    def set_active(self, active):
+        if active ^ self.deployed:
+            self.moving = True
+        self.deployed = active
+
+
+    def update_image(self):
+        if not self.moving:
+            return
+        elif not self.counter:
+            self.counter = counter(self.len_animation, not self.deployed)
+            next(self.counter)
+        try:
+            self.image = self.animation[self.counter.send(not self.deployed)]
+        except StopIteration:
+            self.moving = False
+            self.counter = None
 
     def update(self):
-        self.image = self.animation[next(self.counter)]
+        self.update_image()
         self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
