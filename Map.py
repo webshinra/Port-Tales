@@ -54,6 +54,14 @@ class Map:
             for j, element in enumerate(line):
                 pos = i,j
                 self.dct[element](pos, self.get_id(pos))
+                if (element == 2) :
+                    self.goal1 = (i,j)
+                if (element == 3) :
+                    self.goal2 = (i,j)
+                if (element == 4) :
+                    self.start1 = (i,j)
+                if (element == 5) :
+                    self.start2 = (i,j)
 
         for id_player, player in self.players.items():
            self.action_handler.add_player(id_player, player)
@@ -101,6 +109,28 @@ class Map:
                 res.append((x,y))
 
         return res
+
+    def success (self):
+        
+        player1 = self.players[1]
+        player2 = self.players[2]
+
+        success1 = player1.x == self.goal1[0] and player1.y == self.goal1[1]
+        success2 = player2.x == self.goal2[0] and player2.y == self.goal2[1]
+
+        return success1 and success2
+
+    def reset (self) :
+        player1 = self.players[1]
+        player2 = self.players[2]
+
+        player1.x = self.start1[0]
+        player1.y = self.start1[1]
+        player2.x = self.start2[0]
+        player2.y = self.start2[1]
+
+        
+        
 
 
 
