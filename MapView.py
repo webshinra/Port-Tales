@@ -24,7 +24,7 @@ class MapView:
 
         # Apply background
         self.background = Surface(WINDOW_SIZE)
-        self.background.fill(WHITE)
+        self.background.fill(BACKGROUND)
         self.screen.blit(self.background, self.background.get_rect())
         pyg.display.flip()
         Fps(self.clock)

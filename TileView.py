@@ -22,7 +22,6 @@ def counter(period, reverse= False, cyclic = False):
         current %= period
         if not cyclic and not current:
             break
-
     if reverse:
         yield 0
 
@@ -33,7 +32,7 @@ def animation(folder):
 
 class TileView(DirtySprite):
 
-    width = 70#141
+    width = SPRITE_WIDTH
     layer_container = None
     nb_lines = 0
 
