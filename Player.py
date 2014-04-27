@@ -3,7 +3,7 @@ from pygame import Surface
 from pygame.sprite import Sprite, RenderUpdates, Group
 from constants import *
 from xy import XY
-from tiles import Tile
+from Tiles import Tile
 import os
 from itertools import takewhile, count, cycle
 
@@ -28,17 +28,17 @@ def animation(folder):
         return [Tile.resize_ressource(name) for name in names]
 
 
-class Player(Tile):
+class PlayerVue(Tile):
 
     containers = ()
     ressource_name = "red_player_se"
-    ressources = animation(ressource_name)
 
     def __init__(self, player_id, board_pos, board_id):
         self.board_pos = XY(*board_pos)
         super(Player, self).__init__(self.board_pos, board_id)
         self.dirty = 2
-        self.animation = cycle(self.ressources)
+        ressources = animation(self.ressource_name)
+        self.animation = cycle(ressources)
         self.image = next(self.animation)
         self.id = player_id
         self.routine = player_routine(self)

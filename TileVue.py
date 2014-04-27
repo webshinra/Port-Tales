@@ -5,7 +5,7 @@ from pygame.sprite import DirtySprite, Sprite
 
 from constants import *
 
-class Tile(DirtySprite):
+class TileVue(DirtySprite):
 
     width = 70
     layer_container = None
@@ -35,30 +35,30 @@ class Tile(DirtySprite):
         pos += self.width*self.nb_lines/2, 0
         return XY(*map(int,pos))
 
-class Block(Tile):
+class BlockVue(TileVue):
 
     ressource_name = "block.png"
-    ressource = Tile.resize_ressource(ressource_name)
+    ressource = TileVue.resize_ressource(ressource_name)
 
     def __init__(self, board_pos, board_id):
         self.board_pos = XY(*board_pos)
         super(Block, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
 
-class Floor(Tile):
+class FloorVue(TileVue):
 
     ressource_name = "floor.png"
-    ressource = Tile.resize_ressource(ressource_name)
+    ressource = TileVue.resize_ressource(ressource_name)
 
     def __init__(self, board_pos, board_id):
         self.board_pos = XY(*board_pos)
         super(Floor, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
 
-class Border(Tile):
+class BorderVue(TileVue):
 
     ressource_name = "border.png"
-    ressource = Tile.resize_ressource(ressource_name)
+    ressource = TileVue.resize_ressource(ressource_name)
 
     def __init__(self, board_pos, board_id):
         self.board_pos = XY(*board_pos)
