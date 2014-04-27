@@ -30,10 +30,12 @@ class Player(Tile):
         self.map = mp
         self.view = PlayerView(player_id, pos, self.map.get_id(pos))
         self.dir = 1,0
+        self.id = player_id
 
     def action(self):
-        self.x += self.dir[0]
-        self.y += self.dir[1]
+        target = self.map.projection(self.id)[-1]
+        self.x = target[0]
+        self.y = target[1]
         self.update_view()
 
     def update_view(self):
@@ -41,7 +43,13 @@ class Player(Tile):
         TileView.layer_container.change_layer(self.view, self.map.get_id(pos))
 
     def rotate(self, hat):
+        hat_to_ressource = {(-1,  0) : "red_player_ne",
+                ( 0,  1) : "red_player_se",
+                ( 0, -1) : "red_player_nw",
+                ( 1,  0): "red_player_sw"}
         self.dir = hat
+        self.view.animation = cycle(animation(hat_to_ressource[hat]))
+        
 
 
 class PlayerView(TileView):
