@@ -34,9 +34,13 @@ class ActionHandler:
         controllers = [js for js in controllers if is_valid(js)]
         if len(controllers) < 2:
             msg = "{} over 2 valid joysticks detected".format(len(controllers))
-            raise RuntimeError(msg)
+            #raise RuntimeError(msg)
         # Set attributes
-        self.controllers = controllers[:2]
+        try:
+            self.controllers = controllers[:2]
+        except:
+            self.controllers = [None, None]
+        # Set attributes
         self.players = [None,None]
         self.buffers = [Input(), Input()]
         self.triggered = [Input(), Input()]
