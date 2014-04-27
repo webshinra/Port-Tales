@@ -4,7 +4,7 @@ import os
 
 MAP_DIR = "maps"
 MAP_FORMAT = "map{}.txt"
-MAP_ID = 2
+MAP_ID = 3
 
 # Main function
 def main():

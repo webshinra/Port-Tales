@@ -15,11 +15,18 @@ class Player(Tile):
         self.view = PlayerView(player_id, pos, self.map.get_id(pos))
         self.dir = 1,0
         self.id = player_id
+        self.preview = []
 
     def action(self):
         target = self.map.projection(self.id)[-1]
         self.x = target[0]
         self.y = target[1]
+
+        if (self.map.mat[self.x][self.y] == 7): #hole
+            self.map.reset()
+            otherId = 2 if self.id == 1 else 1
+            self.map.players[otherId].update_view()
+        
 
         success = self.map.success()
         if (success):
@@ -28,6 +35,8 @@ class Player(Tile):
             self.map.players[otherId].update_view()
 
         self.update_view()
+        for tile in self.preview:
+            self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
 
     def update_view(self):
         self.view.board_pos = pos = XY(self.x, self.y)
@@ -36,6 +45,19 @@ class Player(Tile):
     def rotate(self, hat):
         self.dir = hat
         self.view.set_animation(hat)
+
+        
+        for tile in self.preview:
+            self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
+        
+
+        self.preview = self.map.projection(self.id)
+        ressource_name = "floor_red.png"
+        if (self.id == 2):
+            ressource_name = "floor_green.png"
+            
+        for tile in self.preview:
+            self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource(ressource_name)
 
 
 
