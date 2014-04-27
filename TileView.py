@@ -22,7 +22,6 @@ def counter(period, reverse= False, cyclic = False):
         current %= period
         if not cyclic and not current:
             break
-
     if reverse:
         yield 0
 

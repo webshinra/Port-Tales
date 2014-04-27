@@ -12,6 +12,14 @@ def main():
     # Init module
     pyg.init()
 
+    # Sound
+    pyg.mixer.init()
+    sound =
+    sound = pygame.mixer.Sound(sound_file)
+    sound.set_volume(0.5)
+    channel = sound.play()
+
+
     # Imports
     from Map import Map
 
