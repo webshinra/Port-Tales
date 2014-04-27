@@ -43,12 +43,9 @@ class ActionHandler:
         self.zipable = self.players, self.controllers, \
                        self.buffers, self.triggered
 
-        self.add_player(0, FakePlayer(1))
-        self.add_player(1, FakePlayer(2))
-
 
     def add_player(self, id_player, player):
-        self.players[id_player] = player
+        self.players[id_player-1] = player
 
     def read_inputs(self):
         for player, controller, buff, trigger in zip(*self.zipable):

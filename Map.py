@@ -20,10 +20,10 @@ class Map:
     def __init__(self, file_name):
 
         # Action handling
-        action_handler = ActionHandler()
+        self.action_handler = ActionHandler()
 
         # Create mapview
-        self.view = MapView(action_handler)
+        self.view = MapView(self.action_handler)
 
         # Imports
         from Tile import Block, Floor, Border, Tile
@@ -32,8 +32,8 @@ class Map:
                      1:  Floor,
                2: "goal1",
                3: "goal2",
-               4: partial(Player, 1),
-               5: partial(Player, 2),
+               4: partial(self.build_player, 1),
+               5: partial(self.build_player, 2),
                6: Block,
                7: "hole",
                8: "mirrorDU",
@@ -46,10 +46,20 @@ class Map:
         self.mat = add_border(parse(file_name))
         self.width = Tile.nb_lines = len(self.mat)
         self.height = len(self.mat[0])
+        self.players = {}
         for i, line in enumerate(self.mat):
             for j, element in enumerate(line):
                 pos = i,j
                 self.dct[element](pos, self.get_id(pos))
+
+        for id_player, player in self.players.items():
+           self.action_handler.add_player(id_player, player)
+
+    def build_player(self, player_id, pos, pid):
+        from Player import Player
+        from Tile import Block, Floor, Border, Tile
+        Floor(pos, pid)
+        self.players[player_id] = Player(player_id, pos, self)
 
 
     def get_id(self, pos):

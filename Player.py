@@ -4,6 +4,7 @@ from pygame.sprite import Sprite, RenderUpdates, Group
 from Constants import *
 from XY import XY
 from TileView import TileView
+from Tile import Tile
 import os
 from itertools import takewhile, count, cycle
 
@@ -17,25 +18,34 @@ def counter(period):
         yield not current
 
 
-def player_routine(self):
-    pos = self.board_pos
-    while True:
-        move, direction = yield pos
-
 def animation(folder):
         names = (os.path.join(folder, "{:04}.png".format(i)) for i in count(1))
         names = takewhile(os.path.isfile , names)
         return [TileView.resize_ressource(name) for name in names]
 
 
-class Player:
-    def __init__(self, player_id, board_pos, board_id):
-        PlayerView(player_id, board_pos, board_id)
+class Player(Tile):
+    def __init__(self, player_id, pos, mp):
+        Tile.__init__(self, *pos)
+        self.map = mp
+        self.view = PlayerView(player_id, pos, self.map.get_id(pos))
+        self.dir = 1,0
+
+    def action(self):
+        self.x += self.dir[0]
+        self.y += self.dir[1]
+        self.update_view()
+
+    def update_view(self):
+        self.view.board_pos = pos = XY(self.x, self.y)
+        TileView.layer_container.change_layer(self.view, self.map.get_id(pos))
+
+    def rotate(self, hat):
+        self.dir = hat
 
 
 class PlayerView(TileView):
 
-    containers = ()
     ressource_name = "red_player_se"
 
     def __init__(self, player_id, board_pos, board_id):
@@ -46,10 +56,6 @@ class PlayerView(TileView):
         self.animation = cycle(ressources)
         self.image = next(self.animation)
         self.id = player_id
-        self.routine = player_routine(self)
-        next(self.routine)
-        self.move = False
-        self.dir = (1,0)
 
     def convert(self, pos):
         pos = XY(pos.y-pos.x, pos.x+pos.y)
@@ -58,14 +64,8 @@ class PlayerView(TileView):
         pos += self.width*self.nb_lines/2, 0
         return XY(*map(int,pos))
 
-    def set_input(self, keys):
-        self.move = False
-        self.dir = (1,0)
-
-
     def update(self):
         self.image = next(self.animation)
-        self.board_pos = self.routine.send((self.move, self.dir))
         self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
 
 
