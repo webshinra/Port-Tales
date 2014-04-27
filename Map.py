@@ -30,6 +30,7 @@ class Map:
         # Imports
         from Tile import Block, Floor, Border, Tile, Goal
         from Player import Player
+        from TileView import TileView
         self.dct = {-1: Border,
                      1:  Floor,
                2: Goal,
@@ -46,7 +47,7 @@ class Map:
 
         # Parse file
         self.mat = add_border(parse(file_name))
-        self.width = Tile.nb_lines = len(self.mat)
+        self.width = TileView.nb_lines = len(self.mat)
         self.height = len(self.mat[0])
         self.players = {}
         for i, line in enumerate(self.mat):

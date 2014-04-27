@@ -17,7 +17,7 @@ class MapView:
         Fps.containers += (self.all_sprites,)
 
         # Create window
-        self.screen = pyg.display.set_mode(WINDOW_SIZE)#, FULLSCREEN)
+        self.screen = pyg.display.set_mode(WINDOW_SIZE)#, pyg.FULLSCREEN)
         ico = Surface((32,32))
         pyg.display.set_icon(ico)
         pyg.display.set_caption('Test')
@@ -57,7 +57,8 @@ class MapView:
             dirty = self.all_sprites.draw(self.screen)
 
             # Update display
-            pyg.display.update(dirty)
+            pyg.display.flip()
+            #pyg.display.update(dirty)
 
             # Frame rate control
             self.clock.tick(30)

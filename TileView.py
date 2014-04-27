@@ -8,9 +8,9 @@ from Constants import *
 
 class TileView(DirtySprite):
 
-    width = 141
+    width = 70#141
     layer_container = None
-    nb_lines = 10
+    nb_lines = 0
 
     @classmethod
     def resize_ressource(cls, name):
