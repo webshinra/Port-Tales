@@ -1,4 +1,4 @@
-from TileView import BlockView, FloorView, BorderView
+from TileView import BlockView, FloorView, BorderView, GoalView
 
 class Tile:
     def __init__(self, x, y):
@@ -23,3 +23,9 @@ class Border(Tile):
         #super(Border, self).__init__(*pos)
         Tile.__init__(self, *pos)
         self.view = BorderView(pos, pid)
+
+class Goal(Tile):
+    def __init__(self, pos, pid):
+        #super(Border, self).__init__(*pos)
+        Tile.__init__(self, *pos)
+        self.view = GoalView(pos, pid)

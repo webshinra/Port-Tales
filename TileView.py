@@ -2,12 +2,13 @@ from XY import XY
 import pygame as pyg
 from pygame import Surface, Rect
 from pygame.sprite import DirtySprite, Sprite
-
+from itertools import takewhile, count, cycle
+import os
 from Constants import *
 
 class TileView(DirtySprite):
 
-    width = 70
+    width = 141
     layer_container = None
     nb_lines = 10
 
@@ -64,3 +65,23 @@ class BorderView(TileView):
         self.board_pos = XY(*board_pos)
         super(BorderView, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
+
+class GoalView(TileView):
+
+    def animation(folder):
+        names = (os.path.join(folder, "{:04}.png".format(i)) for i in count(1))
+        names = takewhile(os.path.isfile , names)
+        return [TileView.resize_ressource(name) for name in names]
+
+    ressource_name = "goal"
+    ressources = animation(ressource_name)
+
+    def __init__(self, board_pos, board_id):
+        self.board_pos = XY(*board_pos)
+        super(GoalView, self).__init__(self.board_pos, board_id)
+        self.animation = cycle(self.ressources)
+        self.image = next(self.animation)
+
+    def update(self):
+        self.image = next(self.animation)
+        self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))

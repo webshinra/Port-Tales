@@ -26,11 +26,11 @@ class Map:
         self.view = MapView(self.action_handler)
 
         # Imports
-        from Tile import Block, Floor, Border, Tile
+        from Tile import Block, Floor, Border, Tile, Goal
         from Player import Player
         self.dct = {-1: Border,
                      1:  Floor,
-               2: "goal1",
+               2: Goal,
                3: "goal2",
                4: partial(self.build_player, 1),
                5: partial(self.build_player, 2),
