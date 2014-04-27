@@ -33,9 +33,16 @@ class Player(Tile):
         self.id = player_id
 
     def action(self):
-        target = self.map.projection(self.id)[-1]
+        target = self.map.projection(self.id)[-1]        
         self.x = target[0]
         self.y = target[1]
+
+        success = self.map.success()
+        if (success):
+            self.map.reset()
+            otherId = 2 if self.id == 1 else 1
+            self.map.players[otherId].update_view()
+            
         self.update_view()
 
     def update_view(self):
