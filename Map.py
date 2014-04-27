@@ -6,7 +6,9 @@ from functools import partial
 
 def parse(filename):
     with open(filename) as f:
-        return [[int(x) for x in line.split(",")] for line in f]
+        next(line for line in f if line.startswith("data="))
+        parse_line = lambda line: [int(x) for x in line.strip().split(",") if x]
+        return [parse_line(line) for line in f if "," in line]
 
 def add_border(mat):
     res = [[-1] * (2 + len(mat[0]))]
@@ -31,7 +33,7 @@ class Map:
         self.dct = {-1: Border,
                      1:  Floor,
                2: Goal,
-               3: "goal2",
+               3: Goal,
                4: partial(self.build_player, 1),
                5: partial(self.build_player, 2),
                6: Block,
@@ -56,7 +58,7 @@ class Map:
            self.action_handler.add_player(id_player, player)
            self.projection(id_player)
 
-        
+
 
     def build_player(self, player_id, pos, pid):
         from Player import Player

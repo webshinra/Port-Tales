@@ -11,34 +11,46 @@ ClassName=TProjectFilesNode
 
 [Project\ChildNodes\Node0\ChildNodes\Node0]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]constants.py
+FileName=$[Project-Path]ActionHandler.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node1]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]fps.py
+FileName=$[Project-Path]Constants.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node2]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]main.py
+FileName=$[Project-Path]Fps.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node3]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]player.py
+FileName=$[Project-Path]main.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node4]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]stage.py
+FileName=$[Project-Path]Map.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node5]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]tiles.py
+FileName=$[Project-Path]MapView.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node6]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]xy.py
+FileName=$[Project-Path]Player.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node7]
+ClassName=TProjectFileNode
+FileName=$[Project-Path]Tile.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node8]
+ClassName=TProjectFileNode
+FileName=$[Project-Path]TileView.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node9]
+ClassName=TProjectFileNode
+FileName=$[Project-Path]XY.py
 
 [Project\ChildNodes\Node0\ChildNodes]
-Count=7
+Count=10
 
 [Project\ChildNodes\Node1]
 ClassName=TProjectRunConfiguationsNode
