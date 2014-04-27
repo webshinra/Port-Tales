@@ -3,10 +3,19 @@ from pygame import Surface
 from pygame.sprite import Sprite, RenderUpdates, Group
 from Constants import *
 from XY import XY
-from TileView import TileView, animation, counter
+from TileView import TileView, animation
 from Tile import Tile
 import os
 from itertools import takewhile, count, cycle
+from random import randint
+
+def random_counter(period, random=2):
+    current = 0
+    while True:
+        yield current
+        current += randint(1,random)
+        current %= period
+
 
 class Player(Tile):
     def __init__(self, player_id, pos, mp):
@@ -60,7 +69,7 @@ class PlayerView(TileView):
         self.dirty = 2
         self.animation = None
         self.set_animation((0,1))
-        self.counter = counter(self.len_animation, cyclic=True)
+        self.counter = random_counter(self.len_animation)
         self.image = self.animation[next(self.counter)]
 
     def show(self, visible):
