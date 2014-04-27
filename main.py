@@ -4,8 +4,6 @@ import os
 
 MAP_DIR = "maps"
 MAP_FORMAT = "map{}.txt"
-MAP_ID = 1
-
 
 # Main function
 def main():
@@ -22,7 +20,7 @@ def main():
     # Imports
     from Map import Map
 
-    for i in xrange(1, 4):
+    for i in xrange(1, 9):
         # Create map
         filename = os.path.join(MAP_DIR, MAP_FORMAT.format(i))
         mp = Map(filename)

@@ -33,6 +33,8 @@ class MapView:
         from TileView import TileView
         TileView.layer_container = self.all_sprites
 
+        self.next_level = False
+
 
     def reactor_loop(self):
         # Infinite loop
@@ -47,6 +49,10 @@ class MapView:
 
             # Read input
             self.action_handler.read_inputs()
+
+            # Next level
+            if self.next_level:
+                return
 
             # Clear sprites from screen
             self.all_sprites.clear(self.screen, self.background)

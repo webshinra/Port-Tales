@@ -142,6 +142,9 @@ class Map:
         player2.x = self.start2[0]
         player2.y = self.start2[1]
 
+    def next_level(self):
+        self.view.next_level = True
+
 
 
 

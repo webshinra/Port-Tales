@@ -35,13 +35,12 @@ class Player(Tile):
             self.map.reset()
             otherId = 2 if self.id == 1 else 1
             self.map.players[otherId].update_view()
-        
+
 
         success = self.map.success()
         if (success):
-            self.map.reset()
-            otherId = 2 if self.id == 1 else 1
-            self.map.players[otherId].update_view()
+            self.map.next_level()
+            return
 
         self.update_view()
         for tile in self.preview:
@@ -57,18 +56,18 @@ class Player(Tile):
         self.dir = hat
         self.view.set_animation(hat)
 
-        
+
         for tile in self.preview:
             tileId = self.map.mat[tile[0]][tile[1]]
             if (tileId == 1 or tileId == 4 or tileId == 5):
                 self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
-        
+
 
         self.preview = self.map.projection(self.id)
         ressource_name = "floor_red.png"
         if (self.id == 2):
             ressource_name = "floor_green.png"
-            
+
         for tile in self.preview:
             tileId = self.map.mat[tile[0]][tile[1]]
             if (tileId == 1 or tileId == 4 or tileId == 5):
