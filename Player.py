@@ -15,7 +15,7 @@ def counter(period):
     while True:
         current -= 1
         current %= period
-        yield not current
+        yield current
 
 
 def animation(folder):
@@ -43,27 +43,33 @@ class Player(Tile):
         TileView.layer_container.change_layer(self.view, self.map.get_id(pos))
 
     def rotate(self, hat):
-        hat_to_ressource = {(-1,  0) : "red_player_ne",
-                ( 0,  1) : "red_player_se",
-                ( 0, -1) : "red_player_nw",
-                ( 1,  0): "red_player_sw"}
         self.dir = hat
-        self.view.animation = cycle(animation(hat_to_ressource[hat]))
-        
+        self.view.set_animaion(hat)
+
 
 
 class PlayerView(TileView):
 
-    ressource_name = "red_player_se"
+    folder_dict = {(-1,  0) : "red_player_ne",
+                   ( 0,  1) : "red_player_se",
+                   ( 0, -1) : "red_player_nw",
+                   ( 1,  0): "red_player_sw"}
+
+    ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
+    len_animation = min(len(x) for x in ressource_dict.values())
+    print(len_animation)
 
     def __init__(self, player_id, board_pos, board_id):
         self.board_pos = XY(*board_pos)
         super(PlayerView, self).__init__(self.board_pos, board_id)
         self.dirty = 2
-        ressources = animation(self.ressource_name)
-        self.animation = cycle(ressources)
-        self.image = next(self.animation)
+        self.animation = self.ressource_dict[0,1]
+        self.counter = counter(self.len_animation)
+        self.image = self.animation[next(self.counter)]
         self.id = player_id
+
+    def set_animation(self, hat):
+        self.animation = self.ressource_dict[hat]
 
     def convert(self, pos):
         pos = XY(pos.y-pos.x, pos.x+pos.y)
@@ -73,7 +79,7 @@ class PlayerView(TileView):
         return XY(*map(int,pos))
 
     def update(self):
-        self.image = next(self.animation)
+        self.image = self.animation[next(self.counter)]
         self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
 
 
