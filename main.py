@@ -3,16 +3,16 @@ import pygame as pyg
 from pygame import Surface, joystick
 from constants import *
 
-def clear_callback(surf, rect):
-    surf.fill(WHITE, rect)
-
 # Main function
 def main():
     # Init module
     pyg.init()
     joystick.init()
+    action_handler = ActionHandler()
+
     # Imports
     from Map import Map
+    
     # Init element, read the map, build the MapView
     m = Map("file.txt")
     Fps(clock)
@@ -26,10 +26,8 @@ def main():
                     pyg.quit()
                     return
 
-        # Do something
-        #next(iter(players)).set_input()
-        
-        ActionHandeler.pushInput(input);
+        # Read input
+        action_handler.read_inputs()
 
         # Clear sprites from screen
         m.vue.all_sprites.clear(screen, background)
