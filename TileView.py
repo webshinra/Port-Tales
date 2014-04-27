@@ -71,6 +71,16 @@ class BlockView(TileView):
         super(BlockView, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
 
+class HoleView(TileView):
+
+    ressource_name = "black_hole_repos/0001.png"
+    ressource = TileView.resize_ressource(ressource_name)
+
+    def __init__(self, board_pos, board_id):
+        self.board_pos = XY(*board_pos)
+        super(HoleView, self).__init__(self.board_pos, board_id)
+        self.image = self.ressource
+
 class FloorView(TileView):
 
     ressource_name = "floor.png"
