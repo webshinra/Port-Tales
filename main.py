@@ -1,3 +1,4 @@
+#!/usr/bin/python2
 # Import
 import pygame as pyg
 import os
