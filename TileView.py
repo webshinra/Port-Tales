@@ -139,3 +139,10 @@ class GoalView(TileView):
     def update(self):
         self.update_image()
         self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
+        
+    def convert(self, pos):
+        pos = XY(pos.y-pos.x, pos.x+pos.y)
+        factor_y = (self.width-4)/(2*3**0.5)
+        pos *= (self.width-4)*0.5, factor_y
+        pos += self.width*self.nb_lines/2, -19
+        return XY(*map(int,pos))
