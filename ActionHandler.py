@@ -7,10 +7,15 @@ class Input:
         self.button = button
 
 trigo_to_mat = {( 1,  1) : (-1,  0),
-                ( 1,  0) : (-1,  0),
+                ( 0,  1) : (-1,  0),
                 ( 1, -1) : ( 0,  1),
+                ( 1,  0) : ( 0,  1),
                 (-1,  1) : ( 0, -1),
-                (-1, -1) : ( 1,  0)}
+                (0,  -1) : ( 1,  0),
+                (-1, -1) : ( 1,  0),
+                (-1,  0) : ( 0, -1),
+                
+}
 
 def is_valid(js):
     return js.get_numhats() and js.get_numbuttons()
@@ -66,7 +71,7 @@ class ActionHandler:
             buff.hat = current.hat
             buff.button = current.button
             # Perform actions
-            if sum(map(abs, trigger.hat)) == 2:
+            if sum(map(abs, trigger.hat)) > 0:
                 player.rotate(trigo_to_mat[trigger.hat])
             if trigger.button:
                 player.action()
