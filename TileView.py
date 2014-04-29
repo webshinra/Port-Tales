@@ -72,21 +72,13 @@ class BlockView(TileView):
 
 class HoleView(TileView):
 
-    ressource_name = "black_hole_repos"
+    ressource_name = "black_hole_repos/0001.png"
     ressource = TileView.resize_ressource(ressource_name)
 
     def __init__(self, board_pos, board_id):
         self.board_pos = XY(*board_pos)
         super(HoleView, self).__init__(self.board_pos, board_id)
-        self.image = self.ressource        
-
-        self.animation = self.ressource_dict[self.id]
-        self.counter = None
-        self.image = self.animation[0] 
-
-    def update_image(self):
-        self.counter = counter(self.len_animation, not self.deployed)
-        next(self.counter)
+        self.image = self.ressource
 
 class FloorView(TileView):
 
