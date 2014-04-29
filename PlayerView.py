@@ -48,13 +48,6 @@ class PlayerView(TileView):
         key = (self.id,) + hat
         self.animation = self.ressource_dict[key]
 
-    def convert(self, pos):
-        pos = XY(pos.y-pos.x, pos.x+pos.y)
-        factor_y = (self.width-2)/(2*3**0.5)
-        pos *= (self.width-2)*0.5, factor_y
-        pos += self.width*self.nb_lines/2, 0
-        return XY(*map(int,pos))
-
     def update(self):
         if self.moving:
             self.moving -= 1

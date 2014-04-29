@@ -15,7 +15,7 @@ class MapView:
         self.action_handler = action_handler
 
         # Init groupsView
-        self.all_sprites = LayeredUpdates()
+        self.all_sprites = LayeredDirty()
         Fps.containers += (self.all_sprites,)
 
         # Create window

@@ -15,7 +15,8 @@ def reset_screen(background_arg = BLACK):
     if not pyg.display.get_init():
         pyg.init()
     # Init screen
-    flag = pyg.FULLSCREEN * FULLSCREEN
+    flag = pyg.FULLSCREEN #| pyg.DOUBLEBUF | pyg.HWSURFACE
+    flag *=  FULLSCREEN
     flag |= pyg.NOFRAME * NOFRAME
     screen = pyg.display.set_mode(WINDOW_SIZE, flag)
     ico = pyg.image.load(ICON_FILE).convert_alpha()
@@ -45,6 +46,15 @@ def play_music(file_name, volume=50.0):
 
 
 def gen_stage_screen(i):
+    screen, background = reset_screen(BACKGROUND_COLOR)
+    font = pyg.font.Font(FONT_NAME, FONT_SIZE)
+    string = "Stage {} ...".format(i)
+    image = font.render(string, False, FONT_COLOR)
+    rect = image.get_rect().move(FONT_POS)
+    screen.blit(image, rect)
+    pyg.display.flip()
+
+def gen_end_screen(i):
     screen, background = reset_screen(BACKGROUND_COLOR)
     font = pyg.font.Font(FONT_NAME, FONT_SIZE)
     string = "Stage {} ...".format(i)

@@ -40,10 +40,15 @@ class TileView(DirtySprite):
 
     @classmethod
     def resize_ressource(cls, name):
+        # Load ressource
         ressource = pyg.image.load(name).convert_alpha()
+        # Get corresponding size
         factor = float(cls.width)/ressource.get_width()
         size = XY(*ressource.get_size())*(factor,factor)
         size = map(int, size)
+        # Keep the window from not repsonding
+        pyg.event.get()
+        # Scale the ressource
         return pyg.transform.smoothscale(ressource, size)
 
     def __init__(self, board_pos, layer=0):
@@ -53,13 +58,13 @@ class TileView(DirtySprite):
         self.pos = self.convert(board_pos)
         self.rect = Rect(self.pos, (0, 0))
         self.image = Surface(self.rect.size)
-        self.dirty = 1
+        self.dirty = 0
 
     def convert(self, pos):
         pos = XY(pos.y-pos.x, pos.x+pos.y)
-        factor_y = (self.width-4)/(2*3**0.5)
-        pos *= (self.width-4)*0.5, factor_y
-        pos += self.width*self.nb_lines/2, 0
+        factor_y = (self.width)/(2*3**0.5)
+        pos *= (self.width)*0.5, factor_y
+        pos += self.width*self.nb_lines/2, Y_OFFSET
         return XY(*map(int,pos))
 
 class BlockView(TileView):
@@ -182,10 +187,3 @@ class GoalView(TileView):
     def update(self):
         self.update_image()
         self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
-
-    def convert(self, pos):
-        pos = XY(pos.y-pos.x, pos.x+pos.y)
-        factor_y = (self.width-4)/(2*3**0.5)
-        pos *= (self.width-4)*0.5, factor_y
-        pos += self.width*self.nb_lines/2, -19
-        return XY(*map(int,pos))
