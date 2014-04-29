@@ -41,9 +41,7 @@ MAP_FORMAT = os.path.join(MAP_DIR, MAP_FILE)
 
 # SOUND
 MUSIC_FILE = "son/puzz.wav"
-<<<<<<< HEAD
 
 # FPS
 FPS = 30
-=======
->>>>>>> 15e7df8861a37d9c4f5caef60cc744aedd6a18e2
+
