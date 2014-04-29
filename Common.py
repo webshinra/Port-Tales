@@ -8,9 +8,9 @@ def reset_screen():
         pyg.init()
     # Init screen
     screen = pyg.display.set_mode(WINDOW_SIZE)#, pyg.FULLSCREEN)
-    ico = Surface((32,32))
+    ico = pyg.image.load(ICON_NAME).convert_alpha()
     pyg.display.set_icon(ico)
-    pyg.display.set_caption('Test')
+    pyg.display.set_caption(WINDOW_TITLE)
     # Apply background
     background = Surface(WINDOW_SIZE)
     background.fill(BACKGROUND)
