@@ -44,14 +44,26 @@ def play_music(file_name, volume=0.5):
 
 class TimeControl:
     def __init__(self, delta):
-        self.delta = delta*1000
+        self.arg_ms = delta*1000
+
     def __enter__(self):
         self.enter_time = time.get_ticks()
+
     def __exit__(self, *args):
-        delta = self.enter_time + self.delta - time.get_ticks()
+        # Compute delta
+        delta = self.enter_time + self.arg_ms - time.get_ticks()
+        # Handle case delta == 0
+        delta += not delta
+        # Validate delta with sign of the argument
+        delta *= self.arg_ms >= 0
+        # Return if no need to wait
+        if delta < 0:
+            return
+        # Prepare timer event
         custom_event = pyg.USEREVENT + 1
         clock = time.Clock()
         time.set_timer(custom_event, delta)
+        # Game loop
         while True:
             for ev in pyg.event.get():
                 if ev.type == custom_event or \
