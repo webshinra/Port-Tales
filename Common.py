@@ -39,6 +39,7 @@ def play_music(file_name, volume=0.5):
         pyg.mixer.init()
     pyg.mixer.music.load(file_name)
     pyg.mixer.music.set_volume(volume)
+<<<<<<< HEAD
     channel = pyg.mixer.music.play(loops=-1)
 
 
@@ -61,3 +62,6 @@ class TimeControl:
                 if ev.type == pyg.QUIT:
                     safe_exit()
             clock.tick(FPS)
+=======
+    channel = pyg.mixer.music.play(-1)
+>>>>>>> 15e7df8861a37d9c4f5caef60cc744aedd6a18e2

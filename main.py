@@ -17,7 +17,7 @@ def main():
     reset_screen(INSTRUCTION_FILE)
 
     # Play music
-    play_music(MUSIC_FILE, volume=0.0)
+    play_music(MUSIC_FILE, volume=50.0)
 
     # Load ressources
     with TimeControl(INSTRUCTION_TIME):
