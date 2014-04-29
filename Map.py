@@ -2,6 +2,9 @@ from XY import XY
 from MapView import MapView
 from ActionHandler import ActionHandler
 from functools import partial
+from Tile import Block, Floor, Border, Tile, Goal, Hole
+from Player import Player
+from TileView import TileView
 
 
 def parse(filename):
@@ -28,9 +31,7 @@ class Map:
         self.view = MapView(self.action_handler)
 
         # Imports
-        from Tile import Block, Floor, Border, Tile, Goal, Hole
-        from Player import Player
-        from TileView import TileView
+
         self.dct = {-1: Border,
                      1:  Floor,
                      2: partial(self.build_goal, 1),
@@ -70,15 +71,12 @@ class Map:
 
 
     def build_player(self, player_id, pos, pid):
-        from Player import Player
-        from Tile import Floor
         res = Floor(pos, pid)
         self.players[player_id] = Player(player_id, pos, self)
         return res
 
 
     def build_goal(self, goal_id, pos, pid):
-        from Tile import Goal
         self.goal[goal_id] = Goal(goal_id, pos, pid)
         return self.goal[goal_id]
 

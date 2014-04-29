@@ -3,6 +3,7 @@ from pygame.sprite import Sprite, LayeredDirty, Group, LayeredUpdates
 from Fps import Fps
 from Constants import *
 from pygame import Surface
+from Common import reset_screen
 
 class MapView:
     def __init__(self, action_handler):
@@ -17,16 +18,7 @@ class MapView:
         Fps.containers += (self.all_sprites,)
 
         # Create window
-        self.screen = pyg.display.set_mode(WINDOW_SIZE)#, pyg.FULLSCREEN)
-        ico = Surface((32,32))
-        pyg.display.set_icon(ico)
-        pyg.display.set_caption('Test')
-
-        # Apply background
-        self.background = Surface(WINDOW_SIZE)
-        self.background.fill(BACKGROUND)
-        self.screen.blit(self.background, self.background.get_rect())
-        pyg.display.flip()
+        self.screen, self.background = reset_screen()
         Fps(self.clock)
 
         # Tile handling
