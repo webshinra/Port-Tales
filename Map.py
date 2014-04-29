@@ -116,7 +116,7 @@ class Map:
 
         return res
 
-    def success(self):
+    def get_success(self):
 
         player1 = self.players[1]
         player2 = self.players[2]
@@ -126,10 +126,8 @@ class Map:
 
         self.goal[1].view.set_active(success1)
         self.goal[2].view.set_active(success2)
-        self.players[1].view.show(not success1)
-        self.players[2].view.show(not success2)
 
-        return success1 and success2
+        return success1, success2
 
     def reset (self) :
         player1 = self.players[1]

@@ -20,7 +20,6 @@ class Player(Tile):
 
     def action(self):
         projection = self.map.projection(self.id)
-        self.generate_animation(projection, self.dir)
         target = projection[-1]
         self.x = target[0]
         self.y = target[1]
@@ -31,21 +30,27 @@ class Player(Tile):
             self.map.players[otherId].update_view()
 
 
-        success = self.map.success()
-        if (success):
-            self.map.next_level()
-            return
-
+        success1, success2 = self.map.get_success()
+        success = (success1 and self.id == 1) or (success2 and self.id == 2)
+        self.generate_animation(projection, self.dir, success)
         self.update_view()
+
         for tile in self.preview:
             tileId = self.map.mat[tile[0]][tile[1]]
             if (tileId == 1 or tileId == 4 or tileId == 5):
                 self.map.tiles[tile[0], tile[1]].view.reset()
 
-    def generate_animation(self, positions, direction):
-        for i,pos in enumerate(positions):
+        if success1 and success2:
+            self.map.next_level()
+
+    def generate_animation(self, positions, direction, success):
+        for i,pos in enumerate(positions[:-1]):
             delay = (TeleportingPlayerView.len_animation/2) * i
             TeleportingPlayerView(pos, self.map.get_id(pos), direction, delay)
+        if len(positions) > 1 and not success:
+            self.view.move(delay)
+        elif success:
+            self.view.show(False)
 
 
     def update_view(self):

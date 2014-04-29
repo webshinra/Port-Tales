@@ -4,6 +4,8 @@ from Constants import *
 import pygame.time as time
 import sys
 
+countdown = lambda x: (not x for x in xrange(x-1,-1,-1))
+
 def safe_exit():
     pyg.quit()
     sys.exit()
