@@ -15,7 +15,10 @@
    id="svg3036"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="explication.svg">
+   sodipodi:docname="explication.svg"
+   inkscape:export-filename="/home/shinra/Programmation/stunJam/explication.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs3038">
     <linearGradient
@@ -55,12 +58,12 @@
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
      inkscape:zoom="0.49497475"
-     inkscape:cx="1053.8365"
-     inkscape:cy="613.11914"
+     inkscape:cx="1019.0754"
+     inkscape:cy="868.0243"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1918"
+     inkscape:window-width="1232"
      inkscape:window-height="1059"
      inkscape:window-x="0"
      inkscape:window-y="19"
@@ -86,7 +89,7 @@
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
        id="path3997"
-       d="m 355,185.76003 0,167.68533"
+       d="m 355,167.72259 0,185.72277"
        style="fill:#00ffff;stroke:#00ffff;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
     <path
        sodipodi:type="arc"
@@ -148,29 +151,32 @@
        id="path3874"
        style="fill:#281e32;fill-opacity:1;stroke:#ffff00;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none"
        sodipodi:type="arc" />
-    <text
-       sodipodi:linespacing="125%"
-       id="text3000"
-       y="142.03658"
-       x="1103.756"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:CMU Typewriter Text;-inkscape-font-specification:CMU Typewriter Text Medium"
-       xml:space="preserve"><tspan
-         style="font-size:90px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff0000;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7"
-         y="142.03658"
-         x="1103.756"
-         sodipodi:role="line"
-         id="tspan3004">Deplacement</tspan></text>
     <path
        style="fill:#ff0000;stroke:#ff0000;stroke-width:5;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 1084.9038,54.33146 0,269.71074"
+       d="m 1021.5613,18.57499 0,388.90874"
        id="path3906"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cc" />
-    <path
-       style="fill:#ff0000;stroke:#ff0000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 1501.0867,187.6716 -379.8173,0"
-       id="path3908"
-       inkscape:connector-curvature="0" />
+    <g
+       id="g4723">
+      <text
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:CMU Typewriter Text;-inkscape-font-specification:CMU Typewriter Text Medium"
+         x="1039.1062"
+         y="127.89444"
+         id="text3000"
+         sodipodi:linespacing="125%"><tspan
+           id="tspan3004"
+           sodipodi:role="line"
+           x="1039.1062"
+           y="127.89444"
+           style="font-size:90px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff0000;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7">Deplacement</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path3908"
+         d="m 1436.4369,173.52946 -379.8173,0"
+         style="fill:#ff0000;stroke:#ff0000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
     <path
        sodipodi:nodetypes="cc"
        inkscape:connector-curvature="0"
@@ -268,23 +274,27 @@
        sodipodi:ry="79.285713"
        d="m 604.28571,475 a 79.285713,79.285713 0 1 1 -158.57142,0 79.285713,79.285713 0 1 1 158.57142,0 z"
        transform="translate(-170,-27.637817)" />
-    <text
-       sodipodi:linespacing="125%"
-       id="text3991"
-       y="151.10414"
-       x="156.77701"
-       style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#00ffff;fill-opacity:1;stroke:none;font-family:CMU Typewriter Text;-inkscape-font-specification:CMU Typewriter Text Medium"
-       xml:space="preserve"><tspan
-         style="font-size:90px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#00ffff;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7"
-         y="151.10414"
+    <g
+       id="g4728"
+       transform="translate(0,-17.642191)">
+      <text
+         xml:space="preserve"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#00ffff;fill-opacity:1;stroke:none;font-family:CMU Typewriter Text;-inkscape-font-specification:CMU Typewriter Text Medium"
          x="156.77701"
-         sodipodi:role="line"
-         id="tspan3993">Pointage</tspan></text>
-    <path
-       style="fill:#00ffff;stroke:#00ffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none"
-       d="m 544.90865,185.45422 -379.8173,0"
-       id="path3995"
-       inkscape:connector-curvature="0" />
+         y="151.10414"
+         id="text3991"
+         sodipodi:linespacing="125%"><tspan
+           id="tspan3993"
+           sodipodi:role="line"
+           x="156.77701"
+           y="151.10414"
+           style="font-size:90px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#00ffff;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7">Pointage</tspan></text>
+      <path
+         inkscape:connector-curvature="0"
+         id="path3995"
+         d="m 544.90865,185.45422 -379.8173,0"
+         style="fill:#00ffff;stroke:#00ffff;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none" />
+    </g>
     <path
        inkscape:connector-curvature="0"
        id="path4018"
