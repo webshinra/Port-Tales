@@ -1,6 +1,12 @@
 import pygame as pyg
 from pygame import Surface
 from Constants import *
+import pygame.time as time
+import sys
+
+def safe_exit():
+    pyg.quit()
+    sys.exit()
 
 def reset_screen(background_arg = BLACK):
     # Test display
@@ -34,3 +40,24 @@ def play_music(file_name, volume=0.5):
     pyg.mixer.music.load(file_name)
     pyg.mixer.music.set_volume(volume)
     channel = pyg.mixer.music.play(loops=-1)
+
+
+class TimeControl:
+    def __init__(self, delta):
+        self.delta = delta*1000
+    def __enter__(self):
+        self.enter_time = time.get_ticks()
+    def __exit__(self, *args):
+        delta = self.enter_time + self.delta - time.get_ticks()
+        custom_event = pyg.USEREVENT + 1
+        clock = time.Clock()
+        time.set_timer(custom_event, delta)
+        while True:
+            for ev in pyg.event.get():
+                if ev.type == custom_event or \
+                   (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE):
+                    time.set_timer(custom_event, 0)
+                    return pyg.event.post(ev)
+                if ev.type == pyg.QUIT:
+                    safe_exit()
+            clock.tick(FPS)

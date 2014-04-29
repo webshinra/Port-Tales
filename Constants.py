@@ -25,6 +25,9 @@ WINDOW_TITLE = "Port Tales"
 FULLSCREEN = False
 NOFRAME = False
 
+# TIME
+INSTRUCTION_TIME = 10
+
 # SPRITES
 SPRITE_WIDTH = 100
 
@@ -38,3 +41,6 @@ MAP_FORMAT = os.path.join(MAP_DIR, MAP_FILE)
 
 # SOUND
 MUSIC_FILE = "son/puzz.wav"
+
+# FPS
+FPS = 30

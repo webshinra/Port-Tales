@@ -3,7 +3,7 @@ from pygame.sprite import Sprite, LayeredDirty, Group, LayeredUpdates
 from Fps import Fps
 from Constants import *
 from pygame import Surface
-from Common import reset_screen
+from Common import reset_screen, safe_exit
 
 class MapView:
     def __init__(self, action_handler):
@@ -33,11 +33,10 @@ class MapView:
         while True:
             # Get input
             for ev in pyg.event.get():
-                if ev.type == pyg.QUIT or \
-                    (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE):
-                        self.all_sprites.empty()
-                        #pyg.quit()
-                        return
+                if ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE:
+                    return self.all_sprites.empty()
+                if ev.type == pyg.QUIT:
+                    safe_exit()
 
             # Read input
             self.action_handler.read_inputs()
@@ -60,4 +59,4 @@ class MapView:
             #pyg.display.update(dirty)
 
             # Frame rate control
-            self.clock.tick(30)
+            self.clock.tick(FPS)

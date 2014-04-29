@@ -2,7 +2,7 @@
 
 # Import
 import pygame as pyg
-from Common import reset_screen, play_music
+from Common import TimeControl, reset_screen, play_music
 from Constants import *
 import os
 
@@ -19,8 +19,9 @@ def main():
     # Play music
     play_music(MUSIC_FILE, volume=0.0)
 
-    # Imports
-    from Map import Map
+    # Load ressources
+    with TimeControl(INSTRUCTION_TIME):
+        from Map import Map
 
     for i in xrange(1, 9):
         # Create map
