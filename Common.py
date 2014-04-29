@@ -34,11 +34,11 @@ def reset_screen(background_arg = BLACK):
     # Return screen
     return screen, background
 
-def play_music(file_name, volume=0.5):
+def play_music(file_name, volume=50.0):
     if not pyg.mixer.get_init():
         pyg.mixer.init()
     pyg.mixer.music.load(file_name)
-    pyg.mixer.music.set_volume(volume)
+    pyg.mixer.music.set_volume(float(volume)/100)
     channel = pyg.mixer.music.play(-1)
 
 

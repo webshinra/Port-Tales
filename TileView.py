@@ -2,7 +2,7 @@ from XY import XY
 import pygame as pyg
 from pygame import Surface, Rect
 from pygame.sprite import DirtySprite, Sprite
-from itertools import takewhile, count, cycle
+from itertools import takewhile, count, cycle, dropwhile
 import os
 from Constants import *
 
@@ -13,9 +13,9 @@ def counter(period, reverse= False, cyclic = False):
     current = period-1 if reverse else 0
     inc = -1 if reverse else +1
     while True:
-        reverse = yield current
-        if reverse is not None:
-            inc = -5 if reverse else 1
+        arg = yield current
+        if arg is not None:
+            inc = arg
         current += inc
         if not cyclic and current < 0:
             break
@@ -26,9 +26,11 @@ def counter(period, reverse= False, cyclic = False):
         yield 0
 
 def animation(folder):
-        names = (os.path.join(folder, IMG_FORMAT.format(i)) for i in count(1))
-        names = takewhile(os.path.isfile , names)
-        return [TileView.resize_ressource(name) for name in names]
+        isfile = os.path.isfile
+        isnotfile = lambda x: not isfile(x)
+        names = (os.path.join(folder, IMG_FORMAT.format(i)) for i in count())
+        valid_names = takewhile(isfile , dropwhile(isnotfile, names))
+        return [TileView.resize_ressource(name) for name in valid_names]
 
 class TileView(DirtySprite):
 
@@ -90,6 +92,9 @@ class FloorView(TileView):
         super(FloorView, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
 
+    def reset(self):
+        self.image = self.ressource
+
 class BorderView(TileView):
 
     ressource_name = "border.png"
@@ -99,6 +104,43 @@ class BorderView(TileView):
         self.board_pos = XY(*board_pos)
         super(BorderView, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
+
+
+class TeleportingPlayerView(TileView):
+
+    folder_dict = {(0,1) : "dep_general_se_ne",
+                   (-1,0) : "dep_general_sw_nw"}
+
+    ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
+    len_animation = min(len(x) for x in ressource_dict.values())
+
+    def __init__(self, board_pos, board_id, direction, delay):
+        # Init view
+        self.board_pos = XY(*board_pos)
+        super(TeleportingPlayerView, self).__init__(self.board_pos, board_id)
+        # Get animation
+        if direction in self.ressource_dict:
+            self.counter = counter(self.len_animation)
+            self.ressource = self.ressource_dict[direction]
+        else:
+            self.counter = counter(self.len_animation, reverse = True)
+            self.ressource = self.ressource_dict[XY(*direction)*(-1,-1)]
+        self.animation = (self.ressource[i] for i in self.counter)
+        # Init attributes
+        self.image = Surface((0,0))
+        self.delay = delay
+
+
+    def update(self):
+        # Delay control
+        if self.delay:
+            self.delay -= 1
+            return
+        # Animation
+        self.image = next(self.animation, None)
+        if self.image is None:
+            self.kill()
+
 
 class GoalView(TileView):
 
@@ -131,7 +173,8 @@ class GoalView(TileView):
             self.counter = counter(self.len_animation, not self.deployed)
             next(self.counter)
         try:
-            self.image = self.animation[self.counter.send(not self.deployed)]
+            inc = 2 if self.deployed else - 5
+            self.image = self.animation[self.counter.send(inc)]
         except StopIteration:
             self.moving = False
             self.counter = None

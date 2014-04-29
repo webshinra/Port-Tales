@@ -3,7 +3,7 @@ from pygame import Surface
 from pygame.sprite import Sprite, RenderUpdates, Group
 from Constants import *
 from XY import XY
-from TileView import TileView, animation
+from TileView import TileView, animation, TeleportingPlayerView
 from PlayerView import PlayerView
 from Tile import Tile
 from itertools import takewhile, count, cycle
@@ -19,7 +19,9 @@ class Player(Tile):
         self.preview = []
 
     def action(self):
-        target = self.map.projection(self.id)[-1]
+        projection = self.map.projection(self.id)
+        self.generate_animation(projection, self.dir)
+        target = projection[-1]
         self.x = target[0]
         self.y = target[1]
 
@@ -38,7 +40,13 @@ class Player(Tile):
         for tile in self.preview:
             tileId = self.map.mat[tile[0]][tile[1]]
             if (tileId == 1 or tileId == 4 or tileId == 5):
-                self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
+                self.map.tiles[tile[0], tile[1]].view.reset()
+
+    def generate_animation(self, positions, direction):
+        for i,pos in enumerate(positions):
+            delay = (TeleportingPlayerView.len_animation/2) * i
+            TeleportingPlayerView(pos, self.map.get_id(pos), direction, delay)
+
 
     def update_view(self):
         self.view.board_pos = pos = XY(self.x, self.y)
@@ -52,7 +60,7 @@ class Player(Tile):
         for tile in self.preview:
             tileId = self.map.mat[tile[0]][tile[1]]
             if (tileId == 1 or tileId == 4 or tileId == 5):
-                self.map.tiles[tile[0], tile[1]].view.image = TileView.resize_ressource("floor.png")
+                self.map.tiles[tile[0], tile[1]].view.reset()
 
 
         self.preview = self.map.projection(self.id)
