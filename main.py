@@ -1,11 +1,11 @@
 #!/usr/bin/python2
 # Import
 import pygame as pyg
-from Common import reset_screen
+from Common import reset_screen, play_music
+from Constants import *
 import os
 
-MAP_DIR = "maps"
-MAP_FORMAT = "map{}.txt"
+
 
 # Main function
 def main():
@@ -16,11 +16,7 @@ def main():
     reset_screen()
 
     # Sound
-##    pyg.mixer.init()
-##    sound_file = "son/puzz.ogg"
-##    sound = pyg.mixer.Sound(sound_file)
-##    sound.set_volume(0.5)
-##    channel = sound.play()
+    play_music(MUSIC_FILE, 0.5)
 
     # Imports
     from Map import Map
