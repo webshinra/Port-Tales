@@ -44,6 +44,17 @@ def play_music(file_name, volume=50.0):
     channel = pyg.mixer.music.play(-1)
 
 
+def gen_stage_screen(i):
+    screen, background = reset_screen(BACKGROUND_COLOR)
+    font = pyg.font.Font(FONT_NAME, FONT_SIZE)
+    string = "Stage {} ...".format(i)
+    image = font.render(string, False, FONT_COLOR)
+    rect = image.get_rect().move(FONT_POS)
+    screen.blit(image, rect)
+    pyg.display.flip()
+
+
+
 class TimeControl:
     def __init__(self, delta):
         self.arg_ms = delta*1000

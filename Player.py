@@ -45,7 +45,7 @@ class Player(Tile):
 
     def generate_animation(self, positions, direction, success):
         for i,pos in enumerate(positions[:-1]):
-            delay = (TeleportingPlayerView.len_animation/2) * i
+            delay = (TeleportingPlayerView.len_animation) * i
             TeleportingPlayerView(pos, self.map.get_id(pos), direction, delay)
         if len(positions) > 1 and not success:
             self.view.move(delay)

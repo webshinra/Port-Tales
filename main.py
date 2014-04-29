@@ -2,7 +2,7 @@
 
 # Import
 import pygame as pyg
-from Common import TimeControl, reset_screen, play_music
+from Common import TimeControl, reset_screen, play_music, gen_stage_screen
 from Constants import *
 import os
 
@@ -17,13 +17,19 @@ def main():
     reset_screen(INSTRUCTION_FILE)
 
     # Play music
-    play_music(MUSIC_FILE, volume=50.0)
+    play_music(MUSIC_FILE, volume=00.0)
 
     # Load ressources
     with TimeControl(INSTRUCTION_TIME):
         from Map import Map
 
+    # Loop over levels
     for i in xrange(1, 9):
+
+        # Print stage screen
+        with TimeControl(STAGE_TIME):
+            gen_stage_screen(i)
+
         # Create map
         mp = Map(MAP_FORMAT.format(i))
 
