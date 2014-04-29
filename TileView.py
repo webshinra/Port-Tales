@@ -111,7 +111,7 @@ class TeleportingPlayerView(TileView):
     folder_dict = {(0,1) : "dep_general_se_ne",
                    (-1,0) : "dep_general_sw_nw"}
 
-    ressource_dict = {key: animation(name)[::2] for key, name in folder_dict.items()}
+    ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
     len_animation = min(len(x) for x in ressource_dict.values())
 
     def __init__(self, board_pos, board_id, direction, delay):

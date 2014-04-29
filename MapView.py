@@ -36,9 +36,8 @@ class MapView:
         while True:
             # Get input
             for ev in pyg.event.get():
-                if ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE:
-                    return self.all_sprites.empty()
-                if ev.type == pyg.QUIT:
+                if (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE)\
+                   or ev.type == pyg.QUIT:
                     safe_exit()
 
             # Handle countdown
