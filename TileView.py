@@ -173,7 +173,7 @@ class GoalView(TileView):
             self.counter = counter(self.len_animation, not self.deployed)
             next(self.counter)
         try:
-            inc = 2 if self.deployed else - 5
+            inc = 1 if self.deployed else - 5
             self.image = self.animation[self.counter.send(inc)]
         except StopIteration:
             self.moving = False
