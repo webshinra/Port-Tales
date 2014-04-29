@@ -26,7 +26,7 @@ def counter(period, reverse= False, cyclic = False):
         yield 0
 
 def animation(folder):
-        names = (os.path.join(folder, "{:04}.png".format(i)) for i in count(1))
+        names = (os.path.join(folder, LEVEL_FORMAT.format(i)) for i in count(1))
         names = takewhile(os.path.isfile , names)
         return [TileView.resize_ressource(name) for name in names]
 

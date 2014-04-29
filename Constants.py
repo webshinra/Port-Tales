@@ -23,3 +23,11 @@ WINDOW_TITLE = "Port Tales"
 
 # SPRITES
 SPRITE_WIDTH = 100
+
+# MAP AND LEVEL
+LEVEL_FORMAT = "{:04}.png"
+MAP_DIR = "maps"
+MAP_FORMAT = "map{}.txt"
+
+# SOUND
+MUSIC_FILE = "son/puzz.wav"
