@@ -18,7 +18,7 @@ class MapView:
         Fps.containers += (self.all_sprites,)
 
         # Create window
-        self.screen, self.background = reset_screen()
+        self.screen, self.background = reset_screen(BACKGROUND_COLOR)
         Fps(self.clock)
 
         # Tile handling
