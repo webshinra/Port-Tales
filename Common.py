@@ -33,4 +33,4 @@ def play_music(file_name, volume=0.5):
         pyg.mixer.init()
     pyg.mixer.music.load(file_name)
     pyg.mixer.music.set_volume(volume)
-    channel = pyg.mixer.music.play(loops=-1)
+    channel = pyg.mixer.music.play(-1)
