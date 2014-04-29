@@ -1,6 +1,7 @@
 #!/usr/bin/python2
 # Import
 import pygame as pyg
+from Common import reset_screen
 import os
 
 MAP_DIR = "maps"
@@ -11,12 +12,15 @@ def main():
     # Init module
     pyg.init()
 
+    # Init screen
+    reset_screen()
+
     # Sound
-    pyg.mixer.init()
-    sound_file = "son/puzz.ogg"
-    sound = pyg.mixer.Sound(sound_file)
-    sound.set_volume(0.5)
-    channel = sound.play()
+##    pyg.mixer.init()
+##    sound_file = "son/puzz.ogg"
+##    sound = pyg.mixer.Sound(sound_file)
+##    sound.set_volume(0.5)
+##    channel = sound.play()
 
     # Imports
     from Map import Map
