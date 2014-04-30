@@ -15,7 +15,7 @@
    version="1.1"
    inkscape:version="0.48.4 r9939"
    sodipodi:docname="credits.svg"
-   inkscape:export-filename="/home/shinra/Programmation/stunJam/game_ended.png"
+   inkscape:export-filename="/home/shinra/Programmation/stunJam/credits.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
@@ -170,15 +170,15 @@
     <text
        xml:space="preserve"
        style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:CMU Typewriter Text;-inkscape-font-specification:CMU Typewriter Text Medium"
-       x="86.207451"
-       y="95.717995"
+       x="49.064594"
+       y="87.146568"
        id="text3129"
        sodipodi:linespacing="125%"><tspan
          id="tspan3139"
          sodipodi:role="line"
-         x="86.207451"
-         y="95.717995"
-         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffff00;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7">C'etait Port-Tales, pour la stunjam 2014</tspan></text>
+         x="49.064594"
+         y="87.146568"
+         style="font-size:40px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ffff00;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7">C'etait Port' Tales, pour la stunjam 2014</tspan></text>
     <text
        sodipodi:linespacing="125%"
        id="text3364"
