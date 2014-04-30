@@ -112,18 +112,19 @@ class BorderView(TileView):
         self.image = self.ressource
 
 
-class TeleportingPlayerView(TileView):
+class MovingPlayerView(TileView):
 
-    folder_dict = {(0,1) : "dep_general_se_ne",
-                   (-1,0) : "dep_general_sw_nw"}
-
-    ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
-    len_animation = min(len(x) for x in ressource_dict.values())
+    folder_dict = {}
+    ressource_dict = {}
+    len_animation = 0
 
     def __init__(self, board_pos, board_id, direction, delay):
         # Init view
         self.board_pos = XY(*board_pos)
-        super(TeleportingPlayerView, self).__init__(self.board_pos, board_id)
+        super(MovingPlayerView, self).__init__(self.board_pos, board_id)
+        # Init attributes
+        self.image = Surface((0,0))
+        self.delay = delay
         # Get animation
         if direction in self.ressource_dict:
             self.counter = counter(self.len_animation)
@@ -132,9 +133,6 @@ class TeleportingPlayerView(TileView):
             self.counter = counter(self.len_animation, reverse = True)
             self.ressource = self.ressource_dict[XY(*direction)*(-1,-1)]
         self.animation = (self.ressource[i] for i in self.counter)
-        # Init attributes
-        self.image = Surface((0,0))
-        self.delay = delay
 
 
     def update(self):
@@ -146,6 +144,33 @@ class TeleportingPlayerView(TileView):
         self.image = next(self.animation, None)
         if self.image is None:
             self.kill()
+
+class TeleportingPlayerView(MovingPlayerView):
+
+    folder_dict = {(0,1) : "dep_general_se_ne",
+                   (-1,0) : "dep_general_sw_nw"}
+    ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
+    len_animation = min(len(x) for x in ressource_dict.values())
+
+class MinimizingPlayerView(MovingPlayerView):
+
+    folder_dict = {(1,0) : "red_moving_ne",
+                   (0,-1) : "red_moving_nw",
+                   (0,1) : "red_moving_se",
+                   (-1,0) : "red_moving_sw"}
+    ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
+    len_animation = min(len(x) for x in ressource_dict.values())
+
+class MaximizingPlayerView(MovingPlayerView):
+
+    folder_dict = {(-1,0) : "red_moving_ne",
+                   (0,1) : "red_moving_nw",
+                   (0,-1) : "red_moving_se",
+                   (1,0) : "red_moving_sw"}
+    ressource_dict = {key: animation(name)[::-1]
+                      for key, name in folder_dict.items()}
+    len_animation = min(len(x) for x in ressource_dict.values())
+
 
 
 class GoalView(TileView):

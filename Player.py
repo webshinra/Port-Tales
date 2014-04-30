@@ -3,7 +3,8 @@ from pygame import Surface
 from pygame.sprite import Sprite, RenderUpdates, Group
 from Constants import *
 from XY import XY
-from TileView import TileView, animation, TeleportingPlayerView
+from TileView import TileView, animation, TeleportingPlayerView, \
+                     MinimizingPlayerView, MaximizingPlayerView
 from PlayerView import PlayerView
 from Tile import Tile
 from itertools import takewhile, count, cycle
@@ -44,12 +45,25 @@ class Player(Tile):
             self.map.next_level()
 
     def generate_animation(self, positions, direction, success):
-        for i,pos in enumerate(positions[:-1]):
-            delay = (TeleportingPlayerView.len_animation-1) * i
+        # Non moving case
+        if len(positions) < 2:
+            return
+        # Minimizing
+        pos = positions[0]
+        MinimizingPlayerView(pos, self.map.get_id(pos), direction, 0)
+        delay = MinimizingPlayerView.len_animation
+        # Teleporting
+        for i,pos in enumerate(positions[1:-1]):
             TeleportingPlayerView(pos, self.map.get_id(pos), direction, delay)
-        if len(positions) > 1 and not success:
-            delay += TeleportingPlayerView.len_animation
-            self.view.move(delay)
+            delay += TeleportingPlayerView.len_animation-1
+        # Maximizing
+        if not success:
+            pos = positions[-1]
+            delay += 1
+            MaximizingPlayerView(pos, self.map.get_id(pos), direction, delay)
+            delay += MaximizingPlayerView.len_animation
+            self.view.move(delay + 1)
+        # Success
         elif success:
             self.view.show(False)
 
