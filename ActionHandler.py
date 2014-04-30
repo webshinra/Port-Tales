@@ -74,7 +74,8 @@ class ActionHandler:
             buff.hat = current.hat
             buff.button = current.button
             # Perform actions
-            if sum(map(abs, trigger.hat)) > 0:
+            limit = 0 if EXTENDED_CONTROLS else 1
+            if sum(map(abs, trigger.hat)) > limit:
                 player.rotate(trigo_to_mat[trigger.hat])
             if trigger.button:
                 player.action()

@@ -10,7 +10,7 @@ countdown = lambda x: (not x for x in xrange(x-1,-1,-1))
 
 def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
-        return os.path.join(sys._MEIPASS, RESSOURCE_DIR, relative)
+        return os.path.join(sys._MEIPASS, RESOURCE_DIR, relative)
     return os.path.join(RESOURCE_DIR, relative)
 
 def isfile(path):
@@ -68,6 +68,13 @@ def reset_screen(img_file=None, color=BACKGROUND_COLOR):
     # Return screen
     return screen, background
 
+def get_stage_image(index):
+    size = 36
+    font = load_font(FONT_NAME, size)
+    string = "Stage {}".format(index)
+    image = font.render(string, False, FONT_COLOR)
+    return image, image.get_rect(topleft = (size/2,size/2))
+
 def play_music(file_name, volume=50.0):
     if not pyg.mixer.get_init():
         pyg.mixer.init()
@@ -79,20 +86,12 @@ def play_music(file_name, volume=50.0):
 def gen_stage_screen(i):
     screen, background = reset_screen()
     font = load_font(FONT_NAME, FONT_SIZE)
-    string = "Stage {} ...".format(i)
+    string = "S t a g e  {} . . .".format(i)
     image = font.render(string, False, FONT_COLOR)
     rect = image.get_rect().move(FONT_POS)
     screen.blit(image, rect)
     pyg.display.flip()
 
-def gen_end_screen(i):
-    screen, background = reset_screen()
-    font = load_font(FONT_NAME, FONT_SIZE)
-    string = "Stage {} ...".format(i)
-    image = font.render(string, False, FONT_COLOR)
-    rect = image.get_rect().move(FONT_POS)
-    screen.blit(image, rect)
-    pyg.display.flip()
 
 
 

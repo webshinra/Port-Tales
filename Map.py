@@ -23,15 +23,13 @@ def add_border(mat):
 
 class Map:
 
-
-
-    def __init__(self, file_name):
+    def __init__(self, file_name, index):
 
         # Action handling
         self.action_handler = ActionHandler()
 
         # Create mapview
-        self.view = MapView(self.action_handler)
+        self.view = MapView(self.action_handler, index)
 
         # Dictionary
         self.dct = {-1: Border,
@@ -120,8 +118,8 @@ class Map:
     def win(self):
         self.view.win()
 
-    def lose(self):
-        self.view.lose()
+    def lose(self, nb_tiles):
+        self.view.lose(nb_tiles)
 
 
 
