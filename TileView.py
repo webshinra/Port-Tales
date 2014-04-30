@@ -154,19 +154,19 @@ class TeleportingPlayerView(MovingPlayerView):
 
 class MinimizingPlayerView(MovingPlayerView):
 
-    folder_dict = {(1,0) : "red_moving_ne",
+    folder_dict = {(-1,0) : "red_moving_ne",
                    (0,-1) : "red_moving_nw",
                    (0,1) : "red_moving_se",
-                   (-1,0) : "red_moving_sw"}
+                   (1,0) : "red_moving_sw"}
     ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
     len_animation = min(len(x) for x in ressource_dict.values())
 
 class MaximizingPlayerView(MovingPlayerView):
 
-    folder_dict = {(-1,0) : "red_moving_ne",
+    folder_dict = {(1,0) : "red_moving_ne",
                    (0,1) : "red_moving_nw",
                    (0,-1) : "red_moving_se",
-                   (1,0) : "red_moving_sw"}
+                   (-1,0) : "red_moving_sw"}
     ressource_dict = {key: animation(name)[::-1]
                       for key, name in folder_dict.items()}
     len_animation = min(len(x) for x in ressource_dict.values())
