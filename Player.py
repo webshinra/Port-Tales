@@ -87,16 +87,24 @@ class Player(Tile):
                 callback = partial(tile.set_active, False, self.id)
             else:
                 callback = False
-            # Premare animation
+            # Prepare animation
             board_id = self.map.get_id(pos)
             TeleportingPlayerView(pos, board_id, direction, delay, callback)
             delay += TeleportingPlayerView.len_animation-1
 
         # Maximizing
         if not self.success:
+            # Handle tile if it is floor
             pos = positions[-1]
+            tile = self.map.tiles[pos]
+            if isinstance(tile, Floor):
+                callback = partial(tile.set_active, True, self.id)
+            else:
+                callback = False
+            # Prepare animation
             delay += 1
-            MaximizingPlayerView(pos, self.map.get_id(pos), direction, delay)
+            board_id = self.map.get_id(pos)
+            MaximizingPlayerView(pos, board_id, direction, delay, callback)
             delay += MaximizingPlayerView.len_animation
 
         # Moving player

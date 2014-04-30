@@ -90,6 +90,7 @@ class TimeControl:
         # Prepare timer event
         custom_event = pyg.USEREVENT + 1
         clock = time.Clock()
+        pyg.event.get()
         time.set_timer(custom_event, delta)
         # Game loop
         while True:
@@ -100,6 +101,5 @@ class TimeControl:
                 if ev.type in [custom_event, pyg.JOYBUTTONDOWN, pyg.KEYDOWN]:
                     time.set_timer(custom_event, 0)
                     return pyg.event.post(ev)
-
             clock.tick(FPS)
 

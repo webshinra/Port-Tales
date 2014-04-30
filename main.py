@@ -20,7 +20,7 @@ def main():
     play_music(MUSIC_FILE, volume=00.0)
 
     # Load ressources
-    with TimeControl(INSTRUCTION_TIME):
+    with TimeControl(FIRST_INSTRUCTION_TIME):
         from Map import Map
 
     # Loop infinitely
