@@ -10,6 +10,9 @@ def safe_exit():
     pyg.quit()
     sys.exit()
 
+def check_exit():
+    [safe_exit() for ev in pyg.event.get() if ev.type == pyg.QUIT]
+
 def reset_screen(background_arg = BLACK):
     # Test display
     if not pyg.display.get_init():
@@ -72,7 +75,10 @@ class TimeControl:
     def __enter__(self):
         self.enter_time = time.get_ticks()
 
-    def __exit__(self, *args):
+    def __exit__(self, extype, exception, traceback):
+        # Check exception type
+        if extype is SystemExit:
+            safe_exit()
         # Compute delta
         delta = self.enter_time + self.arg_ms - time.get_ticks()
         # Handle case delta == 0

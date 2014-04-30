@@ -2,7 +2,7 @@ import pygame as pyg
 from pygame.sprite import Sprite, LayeredDirty, Group, LayeredUpdates
 from Fps import Fps
 from Constants import *
-from pygame import Surface
+from pygame import Surface, Rect
 from Common import reset_screen, safe_exit, countdown
 from TileView import GoalView
 
@@ -59,7 +59,6 @@ class MapView:
 
             # Update display
             pyg.display.flip()
-            #pyg.display.update(dirty)
 
             # Frame rate control
             self.clock.tick(FPS)

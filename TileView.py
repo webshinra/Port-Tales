@@ -3,6 +3,7 @@ import pygame as pyg
 from pygame import Surface, Rect
 from pygame.sprite import DirtySprite, Sprite
 from itertools import takewhile, count, cycle, dropwhile
+from Common import check_exit
 import os
 from Constants import *
 
@@ -47,7 +48,7 @@ class TileView(DirtySprite):
         size = XY(*ressource.get_size())*(factor,factor)
         size = map(int, size)
         # Keep the window from not repsonding
-        pyg.event.get()
+        check_exit()
         # Scale the ressource
         return pyg.transform.smoothscale(ressource, size)
 

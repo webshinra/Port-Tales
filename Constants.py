@@ -26,6 +26,7 @@ WINDOW_TITLE = "Port Tales"
 FULLSCREEN = False
 NOFRAME = False
 
+
 # FONT
 FONT_NAME = "advanced_led_board.ttf"
 FONT_COLOR = 220,0,0
