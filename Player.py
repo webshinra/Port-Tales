@@ -51,6 +51,10 @@ class Player(Tile):
         self.generate_animation(projection, self.dir, previous_success)
         self.update_view()
 
+        # Update other player
+        other_player = next(p for i,p in self.map.players.items() if i!=self.id)
+        other_player.update_projection()
+
         # End of level
         if success1 and success2:
             self.map.win()
@@ -110,6 +114,8 @@ class Player(Tile):
         # Moving player
         self.view.move(delay + 1, self.success)
 
+    def update_projection(self):
+        self.rotate(self.dir)
 
     def rotate(self, hat):
         # Moving case:
