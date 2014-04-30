@@ -31,8 +31,11 @@ def reset_screen(img_file=None, color=BACKGROUND_COLOR):
     # Get background
     if isinstance(img_file, basestring):
         image = pyg.image.load(img_file).convert_alpha()
-        image = pyg.transform.smoothscale(image, WINDOW_SIZE)
-        background.blit(image, image.get_rect())
+        width = int(WINDOW_WIDTH * REDUCE_FACTOR)
+        height = int(WINDOW_HEIGHT * REDUCE_FACTOR)
+        image = pyg.transform.smoothscale(image, (width,height))
+        center = WINDOW_WIDTH/2, WINDOW_HEIGHT/2
+        background.blit(image, image.get_rect(center=center))
     # Apply background
     screen.blit(background, background.get_rect())
     pyg.display.flip()

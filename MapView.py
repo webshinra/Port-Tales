@@ -36,7 +36,7 @@ class MapView:
         self.win = True
         self.countdown = countdown(GoalView.len_animation)
 
-    def loose(self):
+    def lose(self):
         self.done = True
         self.win = False
         self.countdown = countdown(30)
@@ -50,6 +50,8 @@ class MapView:
                 if (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE)\
                    or ev.type == pyg.QUIT:
                     safe_exit()
+                if (ev.type == pyg.JOYBUTTONDOWN) and ev.button in [4,5]:
+                    return False
 
             # Handle countdown
             if self.done and next(self.countdown):

@@ -119,8 +119,8 @@ class Map:
     def win(self):
         self.view.win()
 
-    def loose(self):
-        self.view.loose()
+    def lose(self):
+        self.view.lose()
 
 
 
