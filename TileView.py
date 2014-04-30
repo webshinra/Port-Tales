@@ -90,16 +90,21 @@ class HoleView(TileView):
 
 class FloorView(TileView):
 
-    ressource_name = "floor.png"
-    ressource = TileView.resize_ressource(ressource_name)
+    filename_dict = {0: "floor.png",
+                     1: "floor_red.png",
+                     2: "floor_green.png",
+                     3: "floor_yellow.png"}
+    ressource_dict = {key:TileView.resize_ressource(name)
+                          for key, name in filename_dict.items()}
 
     def __init__(self, board_pos, board_id):
         self.board_pos = XY(*board_pos)
         super(FloorView, self).__init__(self.board_pos, board_id)
-        self.image = self.ressource
+        self.image = self.ressource_dict[0]
 
-    def reset(self):
-        self.image = self.ressource
+    def set_color(self, color):
+        self.image = self.ressource_dict[color]
+
 
 class BorderView(TileView):
 
@@ -118,7 +123,7 @@ class MovingPlayerView(TileView):
     ressource_dict = {}
     len_animation = 0
 
-    def __init__(self, board_pos, board_id, direction, delay):
+    def __init__(self, board_pos, board_id, direction, delay, callback=None):
         # Init view
         self.board_pos = XY(*board_pos)
         super(MovingPlayerView, self).__init__(self.board_pos, board_id)
@@ -133,7 +138,7 @@ class MovingPlayerView(TileView):
             self.counter = counter(self.len_animation, reverse = True)
             self.ressource = self.ressource_dict[XY(*direction)*(-1,-1)]
         self.animation = (self.ressource[i] for i in self.counter)
-
+        self.callback = callback
 
     def update(self):
         # Delay control
@@ -143,6 +148,8 @@ class MovingPlayerView(TileView):
         # Animation
         self.image = next(self.animation, None)
         if self.image is None:
+            if callable(self.callback):
+                self.callback()
             self.kill()
 
 class TeleportingPlayerView(MovingPlayerView):

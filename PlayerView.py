@@ -17,7 +17,7 @@ class PlayerView(TileView):
     folder_dict = {(1, -1,  0) : "red_player_ne",
                    (1,  0,  1) : "red_player_se",
                    (1,  0, -1) : "red_player_nw",
-                   (1,  1,  0): "red_player_sw",
+                   (1,  1,  0) : "red_player_sw",
                    (2, -1,  0) : "green_player_ne",
                    (2,  0,  1) : "green_player_se",
                    (2,  0, -1) : "green_player_nw",
@@ -49,6 +49,10 @@ class PlayerView(TileView):
     def set_animation(self, hat):
         key = (self.id,) + hat
         self.animation = self.ressource_dict[key]
+
+    def update_pos(self, pos, pos_id):
+        self.board_pos = pos
+        self.layer_container.change_layer(self, pos_id)
 
     def update(self):
         if self.moving:

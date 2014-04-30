@@ -22,19 +22,7 @@ def add_border(mat):
 
 class Map:
 
-    dct = {-1: Border,
-            1:  Floor,
-            2: partial(self.build_goal, 1),
-            3: partial(self.build_goal, 2),
-            4: partial(self.build_player, 1),
-            5: partial(self.build_player, 2),
-            6: Block,
-            7: Hole,
-            8: "mirrorDU",
-            9: "mirrorUD",
-            10: "memory",
-            11: "p1Wall",
-            12: "p2Wall" }
+
 
     def __init__(self, file_name):
 
@@ -44,8 +32,20 @@ class Map:
         # Create mapview
         self.view = MapView(self.action_handler)
 
-        # Imports
-
+        # Dictionary
+        self.dct = {-1: Border,
+                    1:  Floor,
+                    2: partial(self.build_goal, 1),
+                    3: partial(self.build_goal, 2),
+                    4: partial(self.build_player, 1),
+                    5: partial(self.build_player, 2),
+                    6: Block,
+                    7: Hole,
+                    8: "mirrorDU",
+                    9: "mirrorUD",
+                    10: "memory",
+                    11: "p1Wall",
+                    12: "p2Wall" }
 
 
         # Parse file
@@ -64,9 +64,9 @@ class Map:
 
 
     def build_player(self, player_id, pos, pid):
-        res = Floor(pos, pid)
-        self.players[player_id] = Player(player_id, pos, self)
-        return res
+        floor = Floor(pos, pid)
+        self.players[player_id] = Player(player_id, pos, self, floor)
+        return floor
 
 
     def build_goal(self, goal_id, pos, pid):
@@ -83,7 +83,7 @@ class Map:
         result = []
         player = self.players[player_id]
         current_pos = player.pos
-        other_pos = next(p.pos for i,p in self.players if i!= player_id)
+        other_pos = next(p.pos for i,p in self.players.items() if i!=player_id)
 
         # Loop over valid positions
         stop = False
@@ -104,12 +104,17 @@ class Map:
         return result
 
     def get_success(self):
+        # Inint result
+        result = []
         # Get results
-        results = [g.pos == p.pos for g,p in zip(self.goals, self.players)]
-        # Set goals activity
-        [g.set_active(r) for g,r in zip(self.goals, results)]
+        for i in (1,2):
+            goal = self.goals[i]
+            player = self.players[i]
+            success = (goal.pos == player.pos)
+            goal.set_active(success)
+            result.append(success)
         # Return the result
-        return tuple(results)
+        return tuple(result)
 
     def win(self):
         self.view.win()
