@@ -59,7 +59,7 @@ class TileView(DirtySprite):
         self.pos = self.convert(board_pos)
         self.rect = Rect(self.pos, (0, 0))
         self.image = Surface(self.rect.size)
-        self.dirty = 0
+        self.dirty = 2
 
     def convert(self, pos):
         pos = XY(pos.y-pos.x, pos.x+pos.y)
