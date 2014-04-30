@@ -14,7 +14,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="game_ended.svg">
+   sodipodi:docname="game_ended.svg"
+   inkscape:export-filename="/home/shinra/Programmation/stunJam/game_ended.png"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90">
   <defs
      id="defs4">
     <filter
@@ -81,9 +84,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="1"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="1263.6605"
-     inkscape:cy="411.73607"
+     inkscape:zoom="0.7"
+     inkscape:cx="1210.3924"
+     inkscape:cy="517.65928"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -124,33 +127,33 @@
     <text
        sodipodi:linespacing="125%"
        id="text3000"
-       y="411.5368"
-       x="594.15833"
+       y="418.67966"
+       x="551.30121"
        style="font-size:40px;font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#ff0000;fill-opacity:1;stroke:none;font-family:CMU Typewriter Text;-inkscape-font-specification:CMU Typewriter Text Medium"
        xml:space="preserve"><tspan
          style="font-size:60px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff0000;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7"
-         y="411.5368"
-         x="594.15833"
+         y="418.67966"
+         x="551.30121"
          sodipodi:role="line"
-         id="tspan3004">Ft-ce ainsi que tout finit?</tspan><tspan
+         id="tspan3004">Fst-ce ainsi que tout finit?</tspan><tspan
          style="font-size:60px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff0000;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7"
-         y="486.53677"
-         x="594.15833"
+         y="493.67966"
+         x="551.30121"
          sodipodi:role="line"
          id="tspan3125" /><tspan
          style="font-size:60px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff0000;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7"
-         y="561.53674"
-         x="594.15833"
+         y="568.67969"
+         x="551.30121"
          sodipodi:role="line"
          id="tspan3117" /><tspan
          style="font-size:60px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff0000;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7"
-         y="636.53674"
-         x="594.15833"
+         y="643.67969"
+         x="551.30121"
          sodipodi:role="line"
          id="tspan3119" /><tspan
          style="font-size:60px;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;fill:#ff0000;stroke:none;font-family:Advanced Dot Digital-7;-inkscape-font-specification:Advanced Dot Digital-7"
-         y="711.53674"
-         x="594.15833"
+         y="718.67969"
+         x="551.30121"
          sodipodi:role="line"
          id="tspan3121" /></text>
     <text
