@@ -36,13 +36,15 @@ class PlayerView(TileView):
         self.counter = random_counter(self.len_animation)
         self.image = self.animation[next(self.counter)]
         self.moving = False
+        self.hidden = False
 
     def show(self, visible):
         self.visible = visible
 
-    def move(self, delay):
+    def move(self, delay, hidden):
         self.visible = False
         self.moving = delay
+        self.hidden = hidden
 
     def set_animation(self, hat):
         key = (self.id,) + hat
@@ -51,9 +53,11 @@ class PlayerView(TileView):
     def update(self):
         if self.moving:
             self.moving -= 1
-            self.visible = not self.moving
+            self.visible = not (self.moving or self.hidden)
         if self.visible:
             self.image = self.animation[next(self.counter)]
         else:
             self.image = Surface((0,0))
         self.rect = self.image.get_rect(topleft=self.convert(self.board_pos))
+
+

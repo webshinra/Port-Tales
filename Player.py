@@ -20,15 +20,17 @@ class Player(Tile):
         self.preview = []
 
     def action(self):
+        # Moving case:
+        if self.view.moving:
+            return
+        # Get projection
         projection = self.map.projection(self.id)
         target = projection[-1]
         self.x = target[0]
         self.y = target[1]
 
-        if (self.map.mat[self.x][self.y] == 7): #hole
-            self.map.reset()
-            otherId = 2 if self.id == 1 else 1
-            self.map.players[otherId].update_view()
+        if isinstance(self.map.tiles[target], Hole):
+            self.map.lose()
 
 
         success1, success2 = self.map.get_success()
@@ -42,7 +44,8 @@ class Player(Tile):
                 self.map.tiles[tile[0], tile[1]].view.reset()
 
         if success1 and success2:
-            self.map.next_level()
+            self.map.win()
+
 
     def generate_animation(self, positions, direction, success):
         # Non moving case
@@ -62,10 +65,7 @@ class Player(Tile):
             delay += 1
             MaximizingPlayerView(pos, self.map.get_id(pos), direction, delay)
             delay += MaximizingPlayerView.len_animation
-            self.view.move(delay + 1)
-        # Success
-        elif success:
-            self.view.show(False)
+        self.view.move(delay + 1, success)
 
 
     def update_view(self):
@@ -73,6 +73,9 @@ class Player(Tile):
         TileView.layer_container.change_layer(self.view, self.map.get_id(pos))
 
     def rotate(self, hat):
+        # Moving case:
+        if self.view.moving:
+            return
         self.dir = hat
         self.view.set_animation(hat)
 

@@ -22,6 +22,20 @@ def add_border(mat):
 
 class Map:
 
+    dct = {-1: Border,
+            1:  Floor,
+            2: partial(self.build_goal, 1),
+            3: partial(self.build_goal, 2),
+            4: partial(self.build_player, 1),
+            5: partial(self.build_player, 2),
+            6: Block,
+            7: Hole,
+            8: "mirrorDU",
+            9: "mirrorUD",
+            10: "memory",
+            11: "p1Wall",
+            12: "p2Wall" }
+
     def __init__(self, file_name):
 
         # Action handling
@@ -32,42 +46,21 @@ class Map:
 
         # Imports
 
-        self.dct = {-1: Border,
-                     1:  Floor,
-                     2: partial(self.build_goal, 1),
-                     3: partial(self.build_goal, 2),
-                     4: partial(self.build_player, 1),
-                     5: partial(self.build_player, 2),
-                     6: Block,
-                     7: Hole,
-                     8: "mirrorDU",
-                     9: "mirrorUD",
-                     10: "memory",
-                     11: "p1Wall",
-                     12: "p2Wall" }
+
 
         # Parse file
         self.mat = add_border(parse(file_name))
-        self.tiles = {}
         self.width = TileView.nb_lines = len(self.mat)
         self.height = len(self.mat[0])
         self.players = {}
-        self.goal = {}
-        for i, line in enumerate(self.mat):
-            for j, element in enumerate(line):
-                pos = i,j
-                self.tiles[i,j] = self.dct[element](pos, self.get_id(pos))
-                if (element == 2) :
-                    self.goal1 = (i,j)
-                if (element == 3) :
-                    self.goal2 = (i,j)
-                if (element == 4) :
-                    self.start1 = (i,j)
-                if (element == 5) :
-                    self.start2 = (i,j)
+        self.goals = {}
+        self.tiles = {pos: self.dct[element](pos, self.get_id(pos))
+                          for i, line in enumerate(self.mat)
+                              for j, element in enumerate(line)
+                                  for pos in [(i,j)]}
 
         for id_player, player in self.players.items():
-           self.action_handler.add_player(id_player, player)
+            self.action_handler.add_player(id_player, player)
 
 
     def build_player(self, player_id, pos, pid):
@@ -77,8 +70,8 @@ class Map:
 
 
     def build_goal(self, goal_id, pos, pid):
-        self.goal[goal_id] = Goal(goal_id, pos, pid)
-        return self.goal[goal_id]
+        self.goals[goal_id] = Goal(goal_id, pos, pid)
+        return self.goals[goal_id]
 
 
     def get_id(self, pos):
@@ -86,60 +79,43 @@ class Map:
         return pos.x * self.width + pos.y
 
     def projection(self, player_id):
-        res = []
+        # Init variables
+        result = []
         player = self.players[player_id]
-        dir = player.dir
-        x = player.x
-        y = player.y
+        current_pos = player.pos
+        other_pos = next(p.pos for i,p in self.players if i!= player_id)
 
-        continu = True
-        dx = dir[0]
-        dy = dir[1]
+        # Loop over valid positions
+        stop = False
+        while not stop:
+            # Append and update current position
+            result.append(current_pos)
+            current_pos += player.dir
+            # Test new position
+            next_tile = self.tiles[current_pos]
+            stop = isinstance(next_tile, (Block, Border, Hole))
+            stop = stop or current_pos == other_pos
 
-        otherId = 2 if player_id == 1 else 1
-        otherX = self.players[otherId].x
-        otherY = self.players[otherId].y
+        # Black hole case
+        if isinstance(next_tile, Hole):
+            result.append(current_pos)
 
-        res.append((x,y))
-
-        while(continu):
-            nextX = x + dx
-            nextY = y + dy
-            nextTile = self.mat[nextX][nextY]
-            continu = nextTile != 6 and nextTile != -1
-            continu = continu and not (nextX == otherX and nextY == otherY)
-            continu = continu and not (self.mat[x][y] == 7) #hole
-            if (continu):
-                x += dx
-                y += dy
-                res.append((x,y))
-
-        return res
+        # Return result
+        return result
 
     def get_success(self):
+        # Get results
+        results = [g.pos == p.pos for g,p in zip(self.goals, self.players)]
+        # Set goals activity
+        [g.set_active(r) for g,r in zip(self.goals, results)]
+        # Return the result
+        return tuple(results)
 
-        player1 = self.players[1]
-        player2 = self.players[2]
+    def win(self):
+        self.view.win()
 
-        success1 = player1.x == self.goal1[0] and player1.y == self.goal1[1]
-        success2 = player2.x == self.goal2[0] and player2.y == self.goal2[1]
-
-        self.goal[1].view.set_active(success1)
-        self.goal[2].view.set_active(success2)
-
-        return success1, success2
-
-    def reset (self) :
-        player1 = self.players[1]
-        player2 = self.players[2]
-
-        player1.x = self.start1[0]
-        player1.y = self.start1[1]
-        player2.x = self.start2[0]
-        player2.y = self.start2[1]
-
-    def next_level(self):
-        self.view.next_level = True
+    def loose(self):
+        self.view.loose()
 
 
 

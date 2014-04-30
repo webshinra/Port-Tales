@@ -23,18 +23,42 @@ def main():
     with TimeControl(INSTRUCTION_TIME):
         from Map import Map
 
-    # Loop over levels
-    for i in xrange(1, 9):
+    # Loop infinitely
+    while True:
 
-        # Print stage screen
-        with TimeControl(STAGE_TIME):
-            gen_stage_screen(i)
+        # Loop over levels
+        for i in xrange(1, NB_LEVELS+1):
 
-        # Create map
-        mp = Map(MAP_FORMAT.format(i))
+            # Loop over game overs
+            while True:
 
-        # Main loop
-        mp.view.reactor_loop()
+                # Print stage screen
+                with TimeControl(STAGE_TIME):
+                    gen_stage_screen(i)
+
+                # Create map
+                mp = Map(MAP_FORMAT.format(i))
+
+                # Main loop
+                win = mp.view.reactor_loop()
+
+                # Test victory
+                if win: break
+
+                # Game over screen
+                with TimeControl(GAMEOVER_TIME):
+                    reset_screen(GAMEOVER_FILE)
+
+        # End screen
+        with TimeControl(ENDSCREEN_TIME):
+            reset_screen(ENDSCREEN_FILE)
+
+        # Credits screen
+        with TimeControl(CREDITS_TIME):
+            reset_screen(CREDITS_FILE)
+
+        with TimeControl(INSTRUCTION_TIME):
+            reset_screen(INSTRUCTION_FILE)
 
     # Quit
     pyg.quit()

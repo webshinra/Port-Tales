@@ -19,7 +19,7 @@ class MapView:
         Fps.containers += (self.all_sprites,)
 
         # Create window
-        self.screen, self.background = reset_screen(BACKGROUND_COLOR)
+        self.screen, self.background = reset_screen()
         Fps(self.clock)
 
         # Tile handling
@@ -27,8 +27,19 @@ class MapView:
         TileView.layer_container = self.all_sprites
 
         # Initialize attributes
-        self.next_level = False
+        self.exit = False
+        self.done = False
+        self.countdown = None
+
+    def win(self):
+        self.done = True
+        self.win = True
         self.countdown = countdown(GoalView.len_animation)
+
+    def loose(self):
+        self.done = True
+        self.win = False
+        self.countdown = countdown(30)
 
 
     def reactor_loop(self):
@@ -41,11 +52,12 @@ class MapView:
                     safe_exit()
 
             # Handle countdown
-            if self.next_level and next(self.countdown):
-                return self.all_sprites.empty()
+            if self.done and next(self.countdown):
+                self.all_sprites.empty()
+                return self.win
 
             # Read input
-            if not self.next_level:
+            if not self.done:
                 self.action_handler.read_inputs()
 
             # Clear sprites from screen

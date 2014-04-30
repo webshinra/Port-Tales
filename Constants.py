@@ -5,6 +5,9 @@ import os
 # GLOBAL RESSOURCES
 ICON_FILE = "icon.png"
 INSTRUCTION_FILE = "explication.png"
+ENDSCREEN_FILE = "game_ended.png"
+CREDITS_FILE = "credits.png"
+GAMEOVER_FILE = "game_over.png"
 
 # COLOR
 BLACK = 0,0,0
@@ -26,6 +29,8 @@ WINDOW_TITLE = "Port Tales"
 FULLSCREEN = False
 NOFRAME = False
 
+# LEVEL
+NB_LEVELS = 8
 
 # FONT
 FONT_NAME = "advanced_led_board.ttf"
@@ -36,6 +41,9 @@ FONT_POS = 200,100
 # TIME
 INSTRUCTION_TIME = 0
 STAGE_TIME = 2
+GAMEOVER_TIME = 2
+ENDSCREEN_TIME = 10
+CREDITS_SCREEN = 10
 
 # SPRITES
 SPRITE_WIDTH = 100

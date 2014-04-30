@@ -13,7 +13,7 @@ def safe_exit():
 def check_exit():
     [safe_exit() for ev in pyg.event.get() if ev.type == pyg.QUIT]
 
-def reset_screen(background_arg = BLACK):
+def reset_screen(img_file=None, color=BACKGROUND_COLOR):
     # Test display
     if not pyg.display.get_init():
         pyg.init()
@@ -25,15 +25,14 @@ def reset_screen(background_arg = BLACK):
     ico = pyg.image.load(ICON_FILE).convert_alpha()
     pyg.display.set_icon(ico)
     pyg.display.set_caption(WINDOW_TITLE)
+    # Build background
+    background = Surface(WINDOW_SIZE)
+    background.fill(color)
     # Get background
-    if isinstance(background_arg, tuple):
-        background = Surface(WINDOW_SIZE)
-        background.fill(background_arg)
-    elif isinstance(background_arg, basestring):
-        background = pyg.image.load(background_arg).convert_alpha()
-        background = pyg.transform.smoothscale(background, WINDOW_SIZE)
-    else:
-        raise AttributeError("Attribute must be a string or a tuple")
+    if isinstance(img_file, basestring):
+        image = pyg.image.load(img_file).convert_alpha()
+        image = pyg.transform.smoothscale(image, WINDOW_SIZE)
+        background.blit(image, image.get_rect())
     # Apply background
     screen.blit(background, background.get_rect())
     pyg.display.flip()
@@ -49,7 +48,7 @@ def play_music(file_name, volume=50.0):
 
 
 def gen_stage_screen(i):
-    screen, background = reset_screen(BACKGROUND_COLOR)
+    screen, background = reset_screen()
     font = pyg.font.Font(FONT_NAME, FONT_SIZE)
     string = "Stage {} ...".format(i)
     image = font.render(string, False, FONT_COLOR)
@@ -58,7 +57,7 @@ def gen_stage_screen(i):
     pyg.display.flip()
 
 def gen_end_screen(i):
-    screen, background = reset_screen(BACKGROUND_COLOR)
+    screen, background = reset_screen()
     font = pyg.font.Font(FONT_NAME, FONT_SIZE)
     string = "Stage {} ...".format(i)
     image = font.render(string, False, FONT_COLOR)
@@ -95,11 +94,12 @@ class TimeControl:
         # Game loop
         while True:
             for ev in pyg.event.get():
-                if ev.type == custom_event or \
-                   (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE):
+                if ev.type == pyg.QUIT or \
+                  (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE):
+                    safe_exit()
+                if ev.type in [custom_event, pyg.JOYBUTTONDOWN, pyg.KEYDOWN]:
                     time.set_timer(custom_event, 0)
                     return pyg.event.post(ev)
-                if ev.type == pyg.QUIT:
-                    safe_exit()
+
             clock.tick(FPS)
 
