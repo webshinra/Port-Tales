@@ -47,16 +47,21 @@ class MapView:
         while True:
             # Get input
             for ev in pyg.event.get():
+                # Quit
                 if (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE)\
                    or ev.type == pyg.QUIT:
                     safe_exit()
-                if (ev.type == pyg.JOYBUTTONDOWN) and ev.button in [4,5]:
-                    return False
+                # Reset
+                if ev.type == pyg.JOYBUTTONDOWN and \
+                   ev.button in RESET_BUTTONS:
+                    win_reset = False, True
+                    return win_reset
 
             # Handle countdown
             if self.done and next(self.countdown):
                 self.all_sprites.empty()
-                return self.win
+                win_reset = self.win, False
+                return win_reset
 
             # Read input
             if not self.done:

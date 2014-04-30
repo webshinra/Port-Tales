@@ -17,7 +17,7 @@ def main():
     reset_screen(INSTRUCTION_FILE)
 
     # Play music
-    play_music(MUSIC_FILE, volume=00.0)
+    play_music(MUSIC_FILE, volume=VOLUME)
 
     # Load ressources
     with TimeControl(FIRST_INSTRUCTION_TIME):
@@ -40,14 +40,15 @@ def main():
                 mp = Map(MAP_FORMAT.format(i))
 
                 # Main loop
-                win = mp.view.reactor_loop()
+                win, reset = mp.view.reactor_loop()
 
                 # Test victory
                 if win: break
 
                 # Game over screen
-                with TimeControl(GAMEOVER_TIME):
-                    reset_screen(GAMEOVER_FILE)
+                if not reset:
+                    with TimeControl(GAMEOVER_TIME):
+                        reset_screen(GAMEOVER_FILE)
 
         # End screen
         with TimeControl(ENDSCREEN_TIME):

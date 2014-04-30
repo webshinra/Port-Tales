@@ -5,10 +5,11 @@ from functools import partial
 from Tile import Block, Floor, Border, Tile, Goal, Hole
 from Player import Player
 from TileView import TileView
+from Common import open_resource
 
 
 def parse(filename):
-    with open(filename) as f:
+    with open_resource(filename) as f:
         next(line for line in f if line.startswith("data="))
         parse_line = lambda line: [int(x) for x in line.strip().split(",") if x]
         return [parse_line(line) for line in f if "," in line]

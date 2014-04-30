@@ -3,7 +3,7 @@ import pygame as pyg
 from pygame import Surface, Rect
 from pygame.sprite import DirtySprite, Sprite
 from itertools import takewhile, count, cycle, dropwhile
-from Common import check_exit
+from Common import check_exit, load_image, isfile
 import os
 from Constants import *
 
@@ -27,7 +27,6 @@ def counter(period, reverse= False, cyclic = False):
         yield 0
 
 def animation(folder):
-        isfile = os.path.isfile
         isnotfile = lambda x: not isfile(x)
         names = (os.path.join(folder, IMG_FORMAT.format(i)) for i in count())
         valid_names = takewhile(isfile , dropwhile(isnotfile, names))
@@ -42,7 +41,7 @@ class TileView(DirtySprite):
     @classmethod
     def resize_ressource(cls, name):
         # Load ressource
-        ressource = pyg.image.load(name).convert_alpha()
+        ressource = load_image(name).convert_alpha()
         # Get corresponding size
         factor = float(cls.width)/ressource.get_width()
         size = XY(*ressource.get_size())*(factor,factor)

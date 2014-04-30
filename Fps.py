@@ -1,6 +1,7 @@
 import pygame as pyg
 from pygame import Surface
 from pygame.sprite import DirtySprite
+from Common import load_font
 from Constants import *
 
 class Fps(DirtySprite):
@@ -16,7 +17,7 @@ class Fps(DirtySprite):
         self.clock = clock
         self.image = Surface((0,0))
         try :
-            self.font = pyg.font.Font('visitor2.ttf', 20)
+            self.font = load_font('visitor2.ttf', 20)
         except Exception :
             self.visible = False
             self.dirty = 0

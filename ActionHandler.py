@@ -1,5 +1,6 @@
 import pygame as pyg
 from pygame import Surface, joystick
+from Constants import *
 
 class Input:
     def __init__(self, hat=(0,0), button=False):
@@ -7,15 +8,17 @@ class Input:
         self.button = button
 
 trigo_to_mat = {( 1,  1) : (-1,  0),
-                ( 0,  1) : (-1,  0),
                 ( 1, -1) : ( 0,  1),
-                ( 1,  0) : ( 0,  1),
                 (-1,  1) : ( 0, -1),
-                (0,  -1) : ( 1,  0),
-                (-1, -1) : ( 1,  0),
-                (-1,  0) : ( 0, -1),
-                
-}
+                (-1, -1) : ( 1,  0)}
+
+extended = {( 0,  1) : (-1,  0),
+            ( 1,  0) : ( 0,  1),
+            (0,  -1) : ( 1,  0),
+            (-1,  0) : ( 0, -1),}
+
+if EXTENDED_CONTROLS:
+    trigo_to_mat.update(extended)
 
 def is_valid(js):
     return js.get_numhats() and js.get_numbuttons()
