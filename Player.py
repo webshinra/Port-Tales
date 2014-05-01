@@ -56,6 +56,9 @@ class Player(Tile):
         other_player = next(p for i,p in self.map.players.items() if i!=self.id)
         other_player.update_projection()
 
+        # Reset dir
+        self.dir = 0,0
+
         # End of level
         if success1 and success2:
             self.map.win()

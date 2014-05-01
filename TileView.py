@@ -170,7 +170,8 @@ class MinimizingPlayerView(MovingPlayerView):
                    (0,-1) : "red_moving_nw",
                    (0,1) : "red_moving_se",
                    (1,0) : "red_moving_sw"}
-    ressource_dict = {key: animation(name) for key, name in folder_dict.items()}
+    ressource_dict = {key: animation(name)[3:]
+                      for key, name in folder_dict.items()}
     len_animation = min(len(x) for x in ressource_dict.values())
 
 class MaximizingPlayerView(MovingPlayerView):
@@ -179,7 +180,7 @@ class MaximizingPlayerView(MovingPlayerView):
                    (0,1) : "red_moving_nw",
                    (0,-1) : "red_moving_se",
                    (-1,0) : "red_moving_sw"}
-    ressource_dict = {key: animation(name)[::-1]
+    ressource_dict = {key: animation(name)[:3-1:-1]
                       for key, name in folder_dict.items()}
     len_animation = min(len(x) for x in ressource_dict.values())
 
