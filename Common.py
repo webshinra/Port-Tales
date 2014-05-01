@@ -71,7 +71,7 @@ def reset_screen(img_file=None, color=BACKGROUND_COLOR):
 def get_stage_image(index):
     size = 36
     font = load_font(FONT_NAME, size)
-    string = "Stage {}".format(index)
+    string = "Stage {:02}".format(index)
     image = font.render(string, False, FONT_COLOR)
     return image, image.get_rect(topleft = (size/2,size/2))
 
@@ -86,7 +86,7 @@ def play_music(file_name, volume=50.0):
 def gen_stage_screen(i):
     screen, background = reset_screen()
     font = load_font(FONT_NAME, FONT_SIZE)
-    string = "S t a g e  {} . . .".format(i)
+    string = "Stage {:02}  ...".format(i)
     image = font.render(string, False, FONT_COLOR)
     rect = image.get_rect().move(FONT_POS)
     screen.blit(image, rect)
