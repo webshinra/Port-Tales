@@ -86,7 +86,7 @@ def play_music(file_name, volume=50.0):
 def gen_stage_screen(i):
     screen, background = reset_screen()
     font = load_font(FONT_NAME, FONT_SIZE)
-    string = "Stage {:02}  ...".format(i)
+    string = "Stage {:02} ...".format(i)
     image = font.render(string, False, FONT_COLOR)
     rect = image.get_rect().move(FONT_POS)
     screen.blit(image, rect)
