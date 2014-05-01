@@ -36,7 +36,7 @@ RESET_BUTTONS = 3,4,5
 EXTENDED_CONTROLS = True
 
 # LEVEL
-NB_LEVELS = 2
+NB_LEVELS = 8
 
 # FONT
 FONT_NAME = "advanced_led_board.ttf"

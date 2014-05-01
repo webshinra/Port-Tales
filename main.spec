@@ -4,6 +4,12 @@ a = Analysis(['main.py'],
              hiddenimports=[],
              hookspath=None,
              runtime_hooks=None)
+			 
+for d in a.datas:
+    if 'pyconfig' in d[0]: 
+        a.datas.remove(d)
+        break
+		
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
           Tree('data', prefix='data'),
@@ -11,8 +17,8 @@ exe = EXE(pyz,
           a.binaries,
           a.zipfiles,
           a.datas,
-          name='main.exe',
+          name='Port Tales.exe',
           debug=False,
           strip=None,
           upx=True,
-          console=True )
+          console=False)

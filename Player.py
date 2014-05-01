@@ -19,7 +19,7 @@ class Player(Tile):
         self.view = PlayerView(player_id, pos, mp.get_id(pos))
         # Initialize attributes
         self.map = mp
-        self.dir = 1,0
+        self.dir = 0,0
         self.id = player_id
         self.preview = []
         self.success = False
@@ -37,7 +37,7 @@ class Player(Tile):
 
     def action(self):
         # Moving case:
-        if self.view.moving:
+        if self.view.moving or self.dir == (0,0):
             return
 
         # Get projection
@@ -127,7 +127,7 @@ class Player(Tile):
 
     def rotate(self, hat):
         # Moving case:
-        if self.view.moving:
+        if self.view.moving or hat == (0,0):
             return
 
         # Rotate view
