@@ -4,7 +4,7 @@ import os
 
 # GLOBAL RESSOURCES
 RESOURCE_DIR = "data"
-ICON_FILE = "icon.ico"
+ICON_FILE = "icon.png"
 INSTRUCTION_FILE = "explication.png"
 ENDSCREEN_FILE = "game_ended.png"
 CREDITS_FILE = "credits.png"
