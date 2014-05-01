@@ -37,27 +37,31 @@ def main():
                     gen_stage_screen(i)
 
                 # Create map
-                mp = Map(MAP_FORMAT.format(i))
+                mp = Map(MAP_FORMAT.format(i), i)
 
                 # Main loop
                 win, reset = mp.view.reactor_loop()
 
                 # Test victory
-                if win: break
+                if win or reset: break
 
                 # Game over screen
-                if not reset:
-                    with TimeControl(GAMEOVER_TIME):
-                        reset_screen(GAMEOVER_FILE)
+                with TimeControl(GAMEOVER_TIME):
+                    reset_screen(GAMEOVER_FILE)
 
-        # End screen
-        with TimeControl(ENDSCREEN_TIME):
-            reset_screen(ENDSCREEN_FILE)
+            # Reset
+            if reset: break
 
-        # Credits screen
-        with TimeControl(CREDITS_TIME):
-            reset_screen(CREDITS_FILE)
+        if not reset:
+            # End screen
+            with TimeControl(ENDSCREEN_TIME):
+                reset_screen(ENDSCREEN_FILE)
 
+            # Credits screen
+            with TimeControl(CREDITS_TIME):
+                reset_screen(CREDITS_FILE)
+
+        # Instruction screen
         with TimeControl(INSTRUCTION_TIME):
             reset_screen(INSTRUCTION_FILE)
 

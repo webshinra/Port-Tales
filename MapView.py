@@ -3,11 +3,12 @@ from pygame.sprite import Sprite, LayeredDirty, Group, LayeredUpdates
 from Fps import Fps
 from Constants import *
 from pygame import Surface, Rect
-from Common import reset_screen, safe_exit, countdown
-from TileView import GoalView
+from Common import reset_screen, safe_exit, countdown, get_stage_image
+from TileView import GoalView, FallingPlayerView, \
+                     MinimizingPlayerView, TeleportingPlayerView
 
 class MapView:
-    def __init__(self, action_handler):
+    def __init__(self, action_handler, index):
         # Init clock
         self.clock = pyg.time.Clock()
 
@@ -20,7 +21,12 @@ class MapView:
 
         # Create window
         self.screen, self.background = reset_screen()
-        Fps(self.clock)
+        if DISPLAY_FPS:
+            Fps(self.clock)
+
+        # Blit level
+        image, rect = get_stage_image(index)
+        self.background.blit(image, rect)
 
         # Tile handling
         from TileView import TileView
@@ -36,10 +42,14 @@ class MapView:
         self.win = True
         self.countdown = countdown(GoalView.len_animation)
 
-    def lose(self):
+    def lose(self, nb_tiles):
         self.done = True
         self.win = False
-        self.countdown = countdown(30)
+        value = MinimizingPlayerView.len_animation
+        value += TeleportingPlayerView.len_animation * (nb_tiles-2)
+        value += FallingPlayerView.len_animation
+        value *= 2
+        self.countdown = countdown(value)
 
 
     def reactor_loop(self):

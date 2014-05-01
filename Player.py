@@ -4,7 +4,8 @@ from pygame.sprite import Sprite, RenderUpdates, Group
 from Constants import *
 from XY import XY
 from TileView import TileView, animation, TeleportingPlayerView, \
-                     MinimizingPlayerView, MaximizingPlayerView
+                     MinimizingPlayerView, MaximizingPlayerView, \
+                     FallingPlayerView
 from PlayerView import PlayerView
 from Tile import Tile, Hole, Floor
 from itertools import takewhile, count, cycle
@@ -18,7 +19,7 @@ class Player(Tile):
         self.view = PlayerView(player_id, pos, mp.get_id(pos))
         # Initialize attributes
         self.map = mp
-        self.dir = 1,0
+        self.dir = 0,0
         self.id = player_id
         self.preview = []
         self.success = False
@@ -36,7 +37,7 @@ class Player(Tile):
 
     def action(self):
         # Moving case:
-        if self.view.moving:
+        if self.view.moving or self.dir == (0,0):
             return
 
         # Get projection
@@ -59,7 +60,7 @@ class Player(Tile):
         if success1 and success2:
             self.map.win()
         elif isinstance(self.map.tiles[self.pos], Hole):
-            self.map.lose()
+            self.map.lose(len(projection))
 
 
     def generate_animation(self, positions, direction, previous_success):
@@ -108,18 +109,25 @@ class Player(Tile):
             # Prepare animation
             delay += 1
             board_id = self.map.get_id(pos)
-            MaximizingPlayerView(pos, board_id, direction, delay, callback)
+            if isinstance(tile, Hole):
+                animation = FallingPlayerView
+            else:
+                animation = MaximizingPlayerView
+            animation(pos, board_id, direction, delay, callback)
             delay += MaximizingPlayerView.len_animation
 
         # Moving player
-        self.view.move(delay + 1, self.success)
+        if isinstance(tile, Hole):
+            self.view.show(False)
+        else:
+            self.view.move(delay + 1, self.success)
 
     def update_projection(self):
         self.rotate(self.dir)
 
     def rotate(self, hat):
         # Moving case:
-        if self.view.moving:
+        if self.view.moving or hat == (0,0):
             return
 
         # Rotate view

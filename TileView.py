@@ -183,6 +183,17 @@ class MaximizingPlayerView(MovingPlayerView):
                       for key, name in folder_dict.items()}
     len_animation = min(len(x) for x in ressource_dict.values())
 
+class FallingPlayerView(MovingPlayerView):
+
+    folder_dict = {(1,0) : "black_hole_sucking_ne",
+                   (0,1) : "black_hole_sucking_nw",
+                   (0,-1) : "black_hole_sucking_se",
+                   (-1,0) : "black_hole_sucking_sw"}
+    ressource_dict = {key: animation(name)[2:-1]
+                      for key, name in folder_dict.items()}
+    len_animation = min(len(x) for x in ressource_dict.values())
+
+
 
 
 class GoalView(TileView):
