@@ -3,7 +3,7 @@ from pygame.sprite import Sprite, LayeredDirty, Group, LayeredUpdates
 from Fps import Fps
 from Constants import *
 from pygame import Surface, Rect
-from Common import reset_screen, safe_exit, countdown, get_stage_image
+from Common import reset_screen, safe_exit, countdown, get_stage_image, Timer
 from TileView import GoalView, FallingPlayerView, \
                      MinimizingPlayerView, TeleportingPlayerView
 

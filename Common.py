@@ -2,9 +2,19 @@ import pygame as pyg
 from pygame import Surface
 from Constants import *
 import pygame.time as time
+from time import clock
 import sys, os
 
 countdown = lambda x: (not x for x in xrange(x-1,-1,-1))
+
+class Timer:
+    def __init__(self, arg):
+        self.arg = arg
+    def __enter__(self):
+        self.tag = clock()
+    def __exit__(self, *arg):
+        delta = clock() - self.tag
+        print "{} : {:.3} ms".format(self.arg, delta*1000)
 
 # Handle ressources
 

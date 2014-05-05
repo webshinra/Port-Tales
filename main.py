@@ -43,14 +43,15 @@ def main():
                 win, reset = mp.view.reactor_loop()
 
                 # Test victory
-                if win or reset: break
+                if win: break
 
                 # Game over screen
-                with TimeControl(GAMEOVER_TIME):
-                    reset_screen(GAMEOVER_FILE)
+                if not reset:
+                    with TimeControl(GAMEOVER_TIME):
+                        reset_screen(GAMEOVER_FILE)
 
-            # Reset
-            if reset: break
+            # Hard Reset
+            #if hard_reset: break
 
         if not reset:
             # End screen
