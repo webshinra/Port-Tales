@@ -19,22 +19,27 @@ To create a single windows executable, run: pyinstaller main.spec
 
 # Keyboard mapping 
 
-Player 1 : 	Direction : Z, Q, S, D or W, A, S, D
-            Action :	Space
+Player 1 : 	
 
-Player 2 : 	Direction : UP, LEFT, DOWN, RIGHT
-            Action : 	Enter
+- Direction : Z, Q, S, D or W, A, S, D
+- Action :	Space
+
+Player 2 : 	
+
+- Direction : UP, LEFT, DOWN, RIGHT
+- Action : 	Enter
 
 Toggle fullscreen : F
+
 Reset stage : 		R
 
 # XBOX 360 controller mapping 
 
 Plug the controller(s) before you run the game
 
-Direction : Stick or Hat
-Validate : 	A or X
-Reset stage: 	B or Y
+- Direction : Stick or Hat
+- Validate : 	A or X
+- Reset stage: 	B or Y
 
 # Improving it
 
