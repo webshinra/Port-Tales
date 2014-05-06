@@ -93,8 +93,8 @@ class MapView:
                     volume = 0 if pyg.mixer.music.get_volume() else VOLUME
                     pyg.mixer.music.set_volume(float(volume)/100)
                 # Reset
-                if ev.type == pyg.JOYBUTTONDOWN and \
-                   ev.button in RESET_BUTTONS:
+                if (ev.type == pyg.KEYDOWN and ev.key == pyg.K_r) or\
+                (ev.type == pyg.JOYBUTTONDOWN and ev.button in RESET_BUTTONS):
                     win_reset = False, True
                     return win_reset
 
