@@ -12,7 +12,7 @@ for d in a.datas:
 		
 pyz = PYZ(a.pure)
 exe = EXE(pyz,
-          Tree('data', prefix='data'),
+          Tree('data', prefix='data', excludes=["goal", "*.blend", "*.svg", "son"]),
           a.scripts,
           a.binaries,
           a.zipfiles,

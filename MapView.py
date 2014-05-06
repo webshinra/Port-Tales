@@ -1,9 +1,9 @@
 # this file is part of Port Tales
 # Copyright (C) 2014
-# Yann Asset <shinra@electric-dragons.org>, 
+# Yann Asset <shinra@electric-dragons.org>,
 # Vincent Michel <vxgmichel@gmail.com>,
 # Cyril Savary <cyrilsavary42@gmail.com>
-  
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -21,6 +21,7 @@ import pygame as pyg
 from pygame.sprite import Sprite, LayeredDirty, Group, LayeredUpdates
 from Fps import Fps
 from Constants import *
+import Constants
 from pygame import Surface, Rect
 from Common import reset_screen, safe_exit, countdown, get_stage_image, Timer
 from TileView import GoalView, FallingPlayerView, \
@@ -46,6 +47,7 @@ class MapView:
         # Blit level
         image, rect = get_stage_image(index)
         self.background.blit(image, rect)
+        self.screen.blit(self.background, self.background.get_rect())
 
         # Tile handling
         from TileView import TileView
@@ -80,6 +82,16 @@ class MapView:
                 if (ev.type == pyg.KEYDOWN and ev.key == pyg.K_ESCAPE)\
                    or ev.type == pyg.QUIT:
                     safe_exit()
+                # Fullscreen
+                if ev.type == pyg.KEYDOWN and ev.key == pyg.K_f:
+                    Constants.FULLSCREEN ^= True
+                    self.screen, _ = reset_screen()
+                    args = self.background, self.background.get_rect()
+                    self.screen.blit(*args)
+                # Mute
+                if ev.type == pyg.KEYDOWN and ev.key == pyg.K_SEMICOLON:
+                    volume = 0 if pyg.mixer.music.get_volume() else VOLUME
+                    pyg.mixer.music.set_volume(float(volume)/100)
                 # Reset
                 if ev.type == pyg.JOYBUTTONDOWN and \
                    ev.button in RESET_BUTTONS:
@@ -103,10 +115,10 @@ class MapView:
             self.all_sprites.update()
 
             # Draw sprites on screen
-            dirty = self.all_sprites.draw(self.screen)
+            self.all_sprites.draw(self.screen)
 
             # Update display
-            pyg.display.flip()
+            pyg.display.update()
 
             # Frame rate control
             self.clock.tick(FPS)

@@ -2,10 +2,10 @@
 
 # this file is part of Port Tales
 # Copyright (C) 2014
-# Yann Asset <shinra@electric-dragons.org>, 
+# Yann Asset <shinra@electric-dragons.org>,
 # Vincent Michel <vxgmichel@gmail.com>,
 # Cyril Savary <cyrilsavary42@gmail.com>
-  
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -31,6 +31,7 @@ def main():
 
     # Init module
     pyg.init()
+    pyg.mouse.set_visible(False)
 
     # Init screen
     reset_screen(INSTRUCTION_FILE)

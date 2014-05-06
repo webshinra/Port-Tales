@@ -1,9 +1,9 @@
 # this file is part of Port Tales
 # Copyright (C) 2014
-# Yann Asset <shinra@electric-dragons.org>, 
+# Yann Asset <shinra@electric-dragons.org>,
 # Vincent Michel <vxgmichel@gmail.com>,
 # Cyril Savary <cyrilsavary42@gmail.com>
-  
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -20,7 +20,9 @@
 import pygame as pyg
 from pygame import Surface
 from Constants import *
+import Constants
 import pygame.time as time
+from XY import XY
 from time import clock
 import sys, os
 
@@ -74,7 +76,7 @@ def reset_screen(img_file=None, color=BACKGROUND_COLOR):
         pyg.init()
     # Init screen
     flag = pyg.FULLSCREEN #| pyg.DOUBLEBUF | pyg.HWSURFACE
-    flag *=  FULLSCREEN
+    flag *=  Constants.FULLSCREEN
     flag |= pyg.NOFRAME * NOFRAME
     screen = pyg.display.set_mode(WINDOW_SIZE, flag)
     ico = load_image(ICON_FILE).convert_alpha()
@@ -98,25 +100,29 @@ def reset_screen(img_file=None, color=BACKGROUND_COLOR):
     return screen, background
 
 def get_stage_image(index):
-    size = 36
+    size = FONT_SIZE
     font = load_font(FONT_NAME, size)
-    string = "Stage {:02} / {:02}".format(index, NB_LEVELS)
-    image = font.render(string, False, FONT_COLOR)
+    string = "Stage {:02}/{:02}".format(index, NB_LEVELS)
+    image = font.render(string, False, FONT_COLOR).convert_alpha()
+    dim = XY(*image.get_size())
+    ratio = 2,2
+    image = pyg.transform.smoothscale(image, dim/ratio)
     return image, image.get_rect(topleft = (size/2,size/2))
 
 def play_music(file_name, volume=50.0):
     if not pyg.mixer.get_init():
         pyg.mixer.init()
-    load_music(file_name)
-    pyg.mixer.music.set_volume(float(volume)/100)
-    channel = pyg.mixer.music.play(-1)
+    if file_name:
+        load_music(file_name)
+        pyg.mixer.music.set_volume(float(volume)/100)
+        channel = pyg.mixer.music.play(-1)
 
 
 def gen_stage_screen(i):
     screen, background = reset_screen()
     font = load_font(FONT_NAME, FONT_SIZE)
     string = "Stage {:02} ...".format(i)
-    image = font.render(string, False, FONT_COLOR)
+    image = font.render(string, False, FONT_COLOR).convert_alpha()
     rect = image.get_rect().move(FONT_POS)
     screen.blit(image, rect)
     pyg.display.flip()
