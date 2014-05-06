@@ -36,7 +36,8 @@ class MapView:
         self.action_handler = action_handler
 
         # Init groupsView
-        self.all_sprites = LayeredDirty()
+        self.all_sprites = LayeredDirty(_use_updates = True,
+                                        _time_threshold = 1000)
         Fps.containers += (self.all_sprites,)
 
         # Create window
@@ -115,10 +116,10 @@ class MapView:
             self.all_sprites.update()
 
             # Draw sprites on screen
-            self.all_sprites.draw(self.screen)
+            dirty = self.all_sprites.draw(self.screen)
 
             # Update display
-            pyg.display.update()
+            pyg.display.update(dirty)
 
             # Frame rate control
             self.clock.tick(FPS)

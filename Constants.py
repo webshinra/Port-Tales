@@ -87,6 +87,6 @@ MUSIC_FILE = ""
 VOLUME = 50.0
 
 # FPS
-FPS = 30
+FPS = 40
 DISPLAY_FPS = False
 

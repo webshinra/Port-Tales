@@ -77,7 +77,8 @@ class TileView(DirtySprite):
         self.pos = self.convert(board_pos)
         self.rect = Rect(self.pos, (0, 0))
         self.image = Surface(self.rect.size)
-        self.dirty = 2
+        self.source_rect = None
+        self.dirty = 0
 
     def convert(self, pos):
         pos = XY(pos.y-pos.x, pos.x+pos.y)
@@ -95,6 +96,7 @@ class BlockView(TileView):
         self.board_pos = XY(*board_pos)
         super(BlockView, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
+        self.rect.size = self.image.get_size()
 
 class HoleView(TileView):
 
@@ -107,10 +109,12 @@ class HoleView(TileView):
         super(HoleView, self).__init__(self.board_pos, board_id)
         self.counter = counter(self.len_animation, cyclic=True)
         self.animation = self.ressource_dict[0]
+        self.dirty = 2
         self.image = None
 
     def update(self):
         self.image = self.animation[next(self.counter)]
+        self.rect.size = self.image.get_size()
 
 class FloorView(TileView):
 
@@ -125,8 +129,10 @@ class FloorView(TileView):
         self.board_pos = XY(*board_pos)
         super(FloorView, self).__init__(self.board_pos, board_id)
         self.image = self.ressource_dict[0]
+        self.rect.size = self.image.get_size()
 
     def set_color(self, color):
+        self.dirty = 1
         self.image = self.ressource_dict[color]
 
 
@@ -139,6 +145,7 @@ class BorderView(TileView):
         self.board_pos = XY(*board_pos)
         super(BorderView, self).__init__(self.board_pos, board_id)
         self.image = self.ressource
+        self.rect.size = self.image.get_size()
 
 
 class MovingPlayerView(TileView):
@@ -154,6 +161,7 @@ class MovingPlayerView(TileView):
         # Init attributes
         self.image = Surface((0,0))
         self.delay = delay
+        self.dirty = 2
         # Get animation
         if direction in self.ressource_dict:
             self.counter = counter(self.len_animation)
@@ -175,6 +183,8 @@ class MovingPlayerView(TileView):
             if callable(self.callback):
                 self.callback()
             self.kill()
+        else:
+            self.rect.size = self.image.get_size()
 
 class TeleportingPlayerView(MovingPlayerView):
 
@@ -246,6 +256,7 @@ class GoalView(TileView):
         elif not self.counter:
             self.counter = counter(self.len_animation, not self.deployed)
             next(self.counter)
+        self.dirty = 1
         try:
             inc = 1 if self.deployed else - 5
             self.image = self.animation[self.counter.send(inc)]
