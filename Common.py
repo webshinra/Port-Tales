@@ -100,7 +100,7 @@ def reset_screen(img_file=None, color=BACKGROUND_COLOR):
 def get_stage_image(index):
     size = 36
     font = load_font(FONT_NAME, size)
-    string = "Stage {:02}".format(index)
+    string = "Stage {:02} / {:02}".format(index, NB_LEVELS)
     image = font.render(string, False, FONT_COLOR)
     return image, image.get_rect(topleft = (size/2,size/2))
 
