@@ -85,10 +85,14 @@ class MapView:
                     safe_exit()
                 # Fullscreen
                 if ev.type == pyg.KEYDOWN and ev.key == pyg.K_f:
+                    # Toggle fullscreen
                     Constants.FULLSCREEN ^= True
+                    # Reset screen
                     self.screen, _ = reset_screen()
                     args = self.background, self.background.get_rect()
                     self.screen.blit(*args)
+                    # Repaint all
+                    self.all_sprites._use_update = False
                 # Mute
                 if ev.type == pyg.KEYDOWN and ev.key == pyg.K_SEMICOLON:
                     volume = 0 if pyg.mixer.music.get_volume() else VOLUME
