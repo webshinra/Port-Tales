@@ -88,7 +88,3 @@ def main():
 
     # Quit
     pyg.quit()
-
-
-# Call the main function
-if __name__ == '__main__': main()

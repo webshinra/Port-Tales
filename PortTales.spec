@@ -1,6 +1,6 @@
 # -*- mode: python -*-
-a = Analysis(['main.py'],
-             pathex=['C:\\Users\\Vincent\\Downloads\\Programming\\stunJam'],
+a = Analysis(['PortTales.pyw'],
+             pathex=['C:\\Users\\Vincent\\Downloads\\Programming\\PortTales'],
              hiddenimports=[],
              hookspath=None,
              runtime_hooks=None)

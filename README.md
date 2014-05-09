@@ -13,11 +13,11 @@ Little wordless tale about octets.
  
 # Running it
 
-Launch main.py
+Launch PortTales.pyw
 
 # Bundling it
 
-To create a single windows executable, run: pyinstaller main.spec
+To create a single windows executable, run: pyinstaller PortTales.spec
 
 # Keyboard mapping 
 
