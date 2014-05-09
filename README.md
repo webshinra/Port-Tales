@@ -4,6 +4,8 @@ Port-Tales
 A 2-players cooperative puzzle mainly developed in 48h during the StunJam 2014. 
 Little wordless tale about octets.
 
+![Alt text](/webshinra/Port-Tales/master/data/screenshot.png?raw=true "ScreenShot")
+
 # Requirements
 
  - Python 2.7 32 bits
