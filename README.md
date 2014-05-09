@@ -38,8 +38,8 @@ Reset stage : 		R
 Plug the controller(s) before you run the game
 
 - Direction : Stick or Hat
-- Validate : 	A or X
-- Reset stage: 	B or Y
+- Validate : 	A, B or X
+- Reset stage: 	Y
 
 # Improving it
 
