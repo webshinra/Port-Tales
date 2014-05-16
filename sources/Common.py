@@ -89,7 +89,7 @@ def reset_screen(img_file=None, color=BACKGROUND_COLOR):
     if isinstance(img_file, basestring):
         image = load_image(img_file).convert_alpha()
         width = int(WINDOW_WIDTH * REDUCE_FACTOR)
-        height = int(WINDOW_HEIGHT * REDUCE_FACTOR)
+        height = int(WINDOW_HEIGHT *REDUCE_FACTOR)
         image = pyg.transform.smoothscale(image, (width,height))
         center = WINDOW_WIDTH/2, WINDOW_HEIGHT/2
         background.blit(image, image.get_rect(center=center))

@@ -52,6 +52,6 @@ You can build your own level using the free software «tiled» and add them to t
 
 The game come from the joint work of 3 persons:
 
-- Vicent Michel as the main developer
+- Vincent Michel as the main developer
 - Cyril Savary as the level designer
 - Yann Asset as a 3D artist (and a little application architecture).

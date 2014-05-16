@@ -22,7 +22,7 @@ import os
 
 # GLOBAL RESSOURCES
 RESOURCE_DIR = "data"
-ICON_FILE = "icon.png"
+ICON_FILE = "icon_exe.png"
 INSTRUCTION_FILE = "explication.png"
 ENDSCREEN_FILE = "game_ended.png"
 CREDITS_FILE = "credits.png"
