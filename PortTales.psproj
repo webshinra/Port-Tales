@@ -55,18 +55,34 @@ FileName=$[Project-Path]sources\PlayerView.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node10]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]sources\Tile.py
+FileName=$[Project-Path]sources\stage.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node11]
 ClassName=TProjectFileNode
-FileName=$[Project-Path]sources\TileView.py
+FileName=$[Project-Path]sources\stagecontroller.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node12]
+ClassName=TProjectFileNode
+FileName=$[Project-Path]sources\stagemodel.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node13]
+ClassName=TProjectFileNode
+FileName=$[Project-Path]sources\stageview.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node14]
+ClassName=TProjectFileNode
+FileName=$[Project-Path]sources\Tile.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node15]
+ClassName=TProjectFileNode
+FileName=$[Project-Path]sources\TileView.py
+
+[Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes\Node16]
 ClassName=TProjectFileNode
 FileName=$[Project-Path]sources\XY.py
 
 [Project\ChildNodes\Node0\ChildNodes\Node0\ChildNodes]
-Count=13
+Count=17
 
 [Project\ChildNodes\Node0\ChildNodes\Node1]
 ClassName=TProjectFileNode
