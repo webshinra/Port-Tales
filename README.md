@@ -6,14 +6,21 @@ Little wordless tale about octets.
 
 ![Alt text](/data/screenshot.png?raw=true "ScreenShot")
 
+# Windows executable
+
+This file already includes the sources, python and pygame:
+https://sourceforge.net/projects/porttales/files/latest/download
+
 # Requirements
+
+To run the game from the sources, these programs are needed:
 
  - Python 2.7 32 bits
  - Pygame 1.9 32 bits
- 
+
 # Running it
 
-Launch PortTales.pyw
+To run the game from the sources, launch PortTales.pyw
 
 # Bundling it
 
