@@ -57,7 +57,7 @@ You can build your own level using the free software «tiled» and add them to t
 
 # Credits
 
-The game come from the joint work of 3 persons:
+The game comes from the joint work of 3 persons:
 
 - Vincent Michel as the main developer
 - Cyril Savary as the level designer
